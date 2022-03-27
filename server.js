@@ -1,3 +1,5 @@
+const cors = require('cors')
+const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
@@ -25,17 +27,18 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     app.set('view engine', 'ejs')
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
-    app.use(express.static('public'))
+
+    app.use(express.static(path.join(__dirname, 'public')));
 
     // ========================
     // Routes
     // ========================
     app.get('/', (req, res) => {
-      db.collection('quotes').find().toArray()
-        .then(quotes => {
-          res.render('index.ejs', { quotes: quotes })
-        })
-        .catch(/* ... */)
+      //db.collection('quotes').find().toArray()
+     //   .then(quotes => {
+          res.render('public/index.html')
+       // })
+       // .catch(/* ... */)
     })
 
     app.post('/quotes', (req, res) => {
@@ -79,9 +82,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     // ========================
     // Listen
     // ========================
-    //const isProduction = process.env.NODE_ENV === 'production'
     const port = process.env.PORT || 5000
-    //isProduction ? 7500 : 3000
     app.listen(port, function () {
       console.log(`listening on ${port}`)
     })

@@ -1,18 +1,23 @@
 {
-  "name": "crud-demo",
+  "name": "m1p9mean-tsiky",
   "version": "1.0.0",
-  "description": "Demo for Crud Express MongoDB article at https://zellwk.com/blog/crud-express-mongodb",
+  "description": "m1p9mean-tsiky application E-Kaly",
   "main": "index.js",
   "scripts": {
     "start": "node pm2.js",
     "restart": "node pm2.js crud-demo --update-env",
-    "dev": "nodemon server.js",
-    "sync": "node sync.js"
+    "sync": "node sync.js",
+    "buildclient": "cd front-end && ng build",
+    "runclient": "cd front-end && npm start",
+    "devstart": "nodemon server.js",
+    "dev": "npm run buildclient & concurrently --kill-others \"npm run runclient\" \"npm run devstart\""
   },
-  "author": "Zell Liew <zellwk@gmail.com> (https://zellwk.com)",
+  "author": "Tsiky ANDRIANAIVOSOA",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^7.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
