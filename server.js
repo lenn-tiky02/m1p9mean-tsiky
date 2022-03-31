@@ -1,90 +1,86 @@
 const cors = require('cors')
 const path = require('path')
-const express = require('express')
 const bodyParser = require('body-parser')
-const MongoClient = require('mongodb').MongoClient
-const app = express()
+const mongoose = require('mongoose')
+const express = require('express')
+var passport = require('passport');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
+const app = express()
 // ========================
 // Link to Database
 // ========================
 // Updates environment variables
 // @see https://zellwk.com/blog/environment-variables/
 require('./dotenv')
+require('./api/models/db');
+require('./api/config/passport');
 
-// Replace process.env.DB_URL with your actual connection string
-const connectionString = 'mongodb+srv://star-wars:0203@cluster0.b4pmn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+// [SH] Bring in the routes for the API (delete the default routes)
+var routesApi = require('./api/routes/index');
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
-  .then(client => {
-    console.log('Connected to Database')
-    const db = client.db('star-wars-quotes')
-    const quotesCollection = db.collection('quotes')
+// ========================
+// Middlewares
+// ========================
 
-    // ========================
-    // Middlewares
-    // ========================
-    app.set('view engine', 'ejs')
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json())
+app.set('view engine', 'ejs')
+app.use(express.static(path.join(__dirname, 'public')));
 
-    app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(cors());
 
-    // ========================
-    // Routes
-    // ========================
-    app.get('/', (req, res) => {
-      //db.collection('quotes').find().toArray()
-     //   .then(quotes => {
-          res.render('public/index.html')
-       // })
-       // .catch(/* ... */)
-    })
+app.use(passport.initialize());
+app.use('/api', routesApi);
 
-    app.post('/quotes', (req, res) => {
-      quotesCollection.insertOne(req.body)
-        .then(result => {
-          res.redirect('/')
-        })
-        .catch(error => console.error(error))
-    })
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-    app.put('/quotes', (req, res) => {
-      quotesCollection.findOneAndUpdate(
-        { name: 'Yoda' },
-        {
-          $set: {
-            name: req.body.name,
-            quote: req.body.quote
-          }
-        },
-        {
-          upsert: true
-        }
-      )
-        .then(result => res.json('Success'))
-        .catch(error => console.error(error))
-    })
+// error handlers
 
-    app.delete('/quotes', (req, res) => {
-      quotesCollection.deleteOne(
-        { name: req.body.name }
-      )
-        .then(result => {
-          if (result.deletedCount === 0) {
-            return res.json('No quote to delete')
-          }
-          res.json('Deleted Darth Vadar\'s quote')
-        })
-        .catch(error => console.error(error))
-    })
+// [SH] Catch unauthorised errors
+app.use(function (err, req, res, next) {
+if (err.name === 'UnauthorizedError') {
+  res.status(401);
+  res.json({"message" : err.name + ": " + err.message});
+}
+});
 
-    // ========================
-    // Listen
-    // ========================
-    const port = process.env.PORT || 5000
-    app.listen(port, function () {
-      console.log(`listening on ${port}`)
-    })
-  })
-  .catch(console.error)
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+          message: err.message,
+          error: err
+      });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+      message: err.message,
+      error: {}
+  });
+});
+
+// ========================
+// Listen
+// ========================
+const port = process.env.PORT || 5000
+app.listen(port, function () {
+  console.log(`listening on ${port}`)
+})
+
+module.exports = app;
