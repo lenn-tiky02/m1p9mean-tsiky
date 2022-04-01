@@ -10,13 +10,13 @@ import { AuthenticationService, TokenPayload } from '../services/authentication.
 export class LoginComponent {
   credentials: TokenPayload = {
     email: '',
-    password: ''
+    password: '',
+    roles: []
   };
 
   constructor(private auth: AuthenticationService, private router: Router, private formsModule: FormsModule) {}
 
   login() {    
-    console.log(this.credentials)
     this.auth.login(this.credentials).subscribe(() => {
       this.router.navigateByUrl('/profile');
     }, (err) => {

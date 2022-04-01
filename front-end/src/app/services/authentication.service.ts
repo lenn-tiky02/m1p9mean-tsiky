@@ -10,6 +10,7 @@ export interface UserDetails {
   name: string;
   exp: number;
   iat: number;
+  roles: string[]
 }
 
 export interface TokenResponse {
@@ -20,6 +21,7 @@ export interface TokenPayload {
   email: string;
   password: string;
   name?: string;
+  roles: string[]
 }
 
 @Injectable()
@@ -58,6 +60,15 @@ export class AuthenticationService {
       return user.exp > Date.now() / 1000;
     } else {
       return false;
+    }
+  }
+
+  public getUserRoles(): string[] {
+    const user = this.getUserDetails();
+    if (user) {
+      return user.roles;
+    } else {
+      return [];
     }
   }
 
