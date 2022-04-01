@@ -5,7 +5,7 @@ var jwt = require('express-jwt');
 var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload',
-  algorithms: ['sha512']
+  algorithms: ['sha1', 'RS256', 'HS256']
 });
 
 var ctrlProfile = require('../controllers/profile');

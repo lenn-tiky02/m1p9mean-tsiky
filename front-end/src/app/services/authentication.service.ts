@@ -31,14 +31,9 @@ export class AuthenticationService {
   private saveToken(tokenStr: string): void {  
     localStorage.setItem('mean-token', tokenStr);
     this.token = tokenStr;  
-    console.log('SaveToken :)');
-    console.log(tokenStr);
-    console.log(this.token);
   }
 
   private getToken(): string | null {
-    console.log('GetToken :)');
-      console.log(this.token);
     if (!this.token) {
       this.token = localStorage.getItem('mean-token');
     }
@@ -49,11 +44,7 @@ export class AuthenticationService {
     let token : String | null = this.getToken();   
     let payload;
     if (token) {
-      console.log('I really like to party getUserDetails :)');
-      console.log(token);
       payload = token.split('.')[1];
-      console.log('*****');
-      console.log(payload);
       payload = window.atob(payload);
       return JSON.parse(payload);
     } else {
@@ -72,19 +63,12 @@ export class AuthenticationService {
 
   private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
     let base;
-
-    console.log('#REQUEST###');
-    console.log(user);
-
     if (method === 'post') {
       base = this.http.post<TokenResponse>(`/api/${type}`, user);
-    } else {
+    } else {    
       base = this.http.get<TokenResponse>(`/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
     }
 
-    console.log('#BASE###');
-    console.log(base);
-    
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {

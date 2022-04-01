@@ -1,25 +1,25 @@
-<div class="container">
-
-  <div class="row">
-    <div class="col-md-6">
-      <h1>Register</h1>
-      <p class="lead">Already a member? Please <a routerLink="/login">log in</a> instead.</p>
-      <form (submit)="register()">
-        <div class="form-group">
-          <label for="name">Full name</label>
-          <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
-        </div>
-        <button type="submit" class="btn btn-default">Register!</button>
-      </form>
+<div class="py-5 photo-overlay section-parallax" id="book" style="background-image: url(&quot;../../assets/images/restaurant/makereservation_light.jpg&quot;);">
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-lg-6 mx-auto p-3 animate-in-down">
+        <form class="p-4 bg-light" (submit)="register()">
+          <h4 class="mb-4 text-center">S'enregistrer</h4>
+          <p class="lead">Vous êtes déjà membre? veuillez <a routerLink="/login">vous connecter </a> s'il vous plaît.</p>
+          <div class="form-group"> 
+            <label>Nom complet</label>
+            <input type="text" class="form-control" placeholder="Saisissez votre nom" name="name" [(ngModel)]="credentials.name"> 
+          </div>
+          <div class="form-group"> 
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Saisissez votre email" name="email" [(ngModel)]="credentials.email" > 
+          </div>
+          <div class="form-group"> 
+            <label>Mot de passe</label>
+            <input type="password"  class="form-control" placeholder="Saisissez votre mot de passe" name="password" [(ngModel)]="credentials.password"> 
+          </div>
+          <button type="submit" class="btn mt-4 btn-block p-2 btn-primary"><b>S'enregistrer</b></button>
+        </form>
+      </div>
     </div>
   </div>
-
 </div>

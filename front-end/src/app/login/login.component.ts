@@ -4,6 +4,7 @@ import { AuthenticationService, TokenPayload } from '../services/authentication.
 
 
 @Component({
+  selector: 'bloc-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
