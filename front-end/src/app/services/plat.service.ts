@@ -24,7 +24,9 @@ export class PlatService {
     console.log(plat);
     console.log(this.auth.getToken());
     console.log("****************");
-    let returnn =  this.http.post<PlatDetails>(`/api/plats`, plat, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }})
+    const body=JSON.stringify(plat);
+    console.log(body)
+    let returnn =  this.http.post<PlatDetails>(`/api/plats`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));
     console.log("****************");
     console.log(returnn);
@@ -32,9 +34,7 @@ export class PlatService {
     return returnn;
   }
 
-  public getPlats(){
-    //return this.http.get<PlatDetails>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }})
-   // .pipe(retry(1), catchError(this.handleError));
+  public getPlats(): Observable<PlatDetails[]>{
     return this.http.get<PlatDetails[]>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 

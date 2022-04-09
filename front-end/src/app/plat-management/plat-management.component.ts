@@ -25,6 +25,9 @@ export class PlatManagementComponent implements OnInit {
 
   enregistrer() {    
     console.log(this.platVariable);
-    this.platService.ajouterPlat(this.platVariable)
+    this.platService.ajouterPlat(this.platVariable)  
+    .subscribe(data => {
+      console.log(data);
+    })   ;
   }
 }
