@@ -32,9 +32,10 @@ export class PlatService {
     return returnn;
   }
 
-  public getPlats(): Observable<any> {
-    return this.http.get<PlatDetails>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }})
-    .pipe(retry(1), catchError(this.handleError));;
+  public getPlats(){
+    //return this.http.get<PlatDetails>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }})
+   // .pipe(retry(1), catchError(this.handleError));
+    return this.http.get<PlatDetails[]>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   // Error handling

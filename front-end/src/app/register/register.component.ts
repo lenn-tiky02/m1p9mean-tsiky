@@ -19,7 +19,7 @@ export class RegisterComponent {
     
     console.log(this.credentials)
     this.auth.register(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/profile');
+      this.router.navigateByUrl('/productPlat');
     }, (err) => {
       console.error(err);
     });

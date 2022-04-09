@@ -1,1 +1,21 @@
-<p>product-plat works!</p>
+<!-- Events -->
+<div class="py-0 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="mb-4 text-primary text-center">Votre sélection</h1>        
+        <p class="m-0 text-center">Commandez&nbsp; vos plats ici</p>
+        <div class="row">
+          <div class="col-md-4 p-3" *ngFor="let plat of platListe">
+            <img class="img-fluid d-block w-100 mb-3" src="../../assets/images/restaurant/event_1_light.jpg">
+            <p class="lead text-muted mb-1">{{plat.prixDeVente}}</p>
+            <h5 class="text-dark"><b>{{plat.nom}}</b></h5>
+            <p class="mb-3">{{plat.description}}</p>
+            <a href="#" class="btn btn-outline-primary"><b class="">Commander</b></a>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
