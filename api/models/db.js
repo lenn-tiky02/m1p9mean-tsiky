@@ -45,3 +45,7 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./users');
+require('./restaurants');
+require('./plats');
+require('./commandes');
+require('./clients');

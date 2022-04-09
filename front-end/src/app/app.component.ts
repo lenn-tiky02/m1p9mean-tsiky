@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
+import { RoleGuardGuard } from './services/guards/role-guard.guard';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,5 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(public auth: AuthenticationService) {}
+  constructor(public auth: AuthenticationService, public role: RoleGuardGuard) {}
 }

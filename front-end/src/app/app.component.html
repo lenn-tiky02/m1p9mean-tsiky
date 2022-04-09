@@ -23,11 +23,11 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar11">
-        <!--<ul class="navbar-nav mr-auto">
-          <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>
-        </ul> -->
+        <ul class="navbar-nav mr-auto">
+          <li *ngIf="role" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Restaurant Management</a> </li>
+        <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>--> 
+        </ul> 
         <ul class="navbar-nav ml-auto">
       <!--    <li class="nav-item"> <a class="nav-link" href="#">Services</a> </li>-->
           <li *ngIf="!auth.isLoggedIn()" class="nav-item">   <a class="btn btn-primary navbar-btn ml-md-2" routerLink="/login"><i class="fa fa-user-circle fa-fw" ></i> Se connecter</a></li>
@@ -42,7 +42,6 @@
   </nav>
   <!-- End Navbar-->
 
-  
 <router-outlet></router-outlet>
 
   <!-- Footer -->

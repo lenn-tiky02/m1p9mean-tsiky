@@ -18,7 +18,12 @@ export class LoginComponent {
 
   login() {    
     this.auth.login(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/profile');
+      if(this.auth.getUserRoles()[0] === 'Restaurateur'){
+        this.router.navigateByUrl('/restaurantAdmin');
+       }else if(this.auth.getUserRoles()[0] === 'Client'){
+        this.router.navigateByUrl('/profile');
+       }
+      
     }, (err) => {
       console.error(err);
     }); 
