@@ -1,7 +1,8 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
-import { defer, finalize, NEVER, share } from 'rxjs';
+import { defer, NEVER } from 'rxjs';
+import { finalize, share } from 'rxjs/operators';
 import { SpinnerOverlayComponent } from '../spinner-overlay/spinner-overlay.component';
 
 @Injectable({
@@ -10,6 +11,8 @@ import { SpinnerOverlayComponent } from '../spinner-overlay/spinner-overlay.comp
 export class SpinnerOverlayService {
   private overlayRef: OverlayRef | undefined = undefined;
   
+  constructor(private overlay: Overlay) {}
+
   public readonly spinner$ = defer(() => {
     this.show();
     return NEVER.pipe(
@@ -18,10 +21,9 @@ export class SpinnerOverlayService {
       })
     );
   }).pipe(share());
-
-  constructor(private overlay: Overlay) {}
    
   private show(): void {
+    console.log('SpinnerOverlayService ~ show spinner');
     // Hack avoiding `ExpressionChangedAfterItHasBeenCheckedError` error
     Promise.resolve(null).then(() => {
         if (!this.overlayRef) {
@@ -39,6 +41,7 @@ export class SpinnerOverlayService {
   }
 
   private hide(): void {
+    console.log('SpinnerOverlayService ~ hide spinner');
     if (this.overlayRef) {
       this.overlayRef.detach();
       this.overlayRef = undefined;

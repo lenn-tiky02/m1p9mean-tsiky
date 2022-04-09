@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { PlatService } from './services/plat.service';
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
+import { SpinnerInterceptor } from './services/spinner-interceptor';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -45,13 +47,19 @@ import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.compo
     CommonModule, 
     BrowserAnimationsModule,
     DragDropModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    OverlayModule
   ],
   providers: [  
     AuthenticationService, 
     AuthGuardService,
     PlatService,
-    SpinnerOverlayService
+    SpinnerOverlayService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent] 
 })
