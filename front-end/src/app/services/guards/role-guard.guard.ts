@@ -24,4 +24,11 @@ export class RoleGuardGuard implements CanActivate {
   }
 
   
+  isNavAuthorised(expectedRole : string[]): boolean{
+    const roles: string[] = this.auth.getUserRoles();
+    const expectedRoles = expectedRole;
+    //if equals -1 there is no match
+    const roleMatches = roles.findIndex(role => expectedRoles.indexOf(role) !== -1);
+    return (roleMatches < 0) ? false : true;
+  }
 }

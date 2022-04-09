@@ -24,7 +24,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar11">
         <ul class="navbar-nav mr-auto">
-          <li *ngIf="role" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Restaurant Management</a> </li>
+          <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Restaurant Management</a> </li>
         <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>--> 
         </ul> 
