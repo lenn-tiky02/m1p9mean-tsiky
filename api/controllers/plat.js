@@ -80,10 +80,7 @@ module.exports.delete = function(req,res){
 }
 
 module.exports.create = function(req, res) {
- // Plat.create(req.Plat);
-    // Validate request   
-    console.log('@@@@@@@@@@@@@@@@');
-    console.log(req.body);
+
     if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevien || !req.body.statutDisponibilite|| !req.body.imagePath) {
       sendJSONresponse(res, 400, {
         "message": "All fields required"

@@ -11,6 +11,7 @@ var auth = jwt({
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
 var ctrlPlat = require('../controllers/plat');
+var ctrlSendMail = require('../controllers/sendmail');
 
 //routes
 router.get('/', (req, res) => {
@@ -31,4 +32,6 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
+// send mail
+router.post('/sendMail', ctrlSendMail.sendMail);
 module.exports = router;
