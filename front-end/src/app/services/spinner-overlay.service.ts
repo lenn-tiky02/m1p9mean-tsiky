@@ -22,7 +22,7 @@ export class SpinnerOverlayService {
     );
   }).pipe(share());
    
-  private show(): void {
+  public show(): void {
     console.log('SpinnerOverlayService ~ show spinner');
     // Hack avoiding `ExpressionChangedAfterItHasBeenCheckedError` error
     Promise.resolve(null).then(() => {
@@ -40,7 +40,7 @@ export class SpinnerOverlayService {
     });
   }
 
-  private hide(): void {
+  public hide(): void {
     console.log('SpinnerOverlayService ~ hide spinner');
     if (this.overlayRef) {
       this.overlayRef.detach();

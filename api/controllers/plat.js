@@ -81,7 +81,7 @@ module.exports.delete = function(req,res){
 
 module.exports.create = function(req, res) {
 
-    if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevien || !req.body.statutDisponibilite|| !req.body.imagePath) {
+    if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevient || !req.body.statutDisponibilite|| !req.body.imagePath) {
       sendJSONresponse(res, 400, {
         "message": "All fields required"
       });
@@ -93,7 +93,7 @@ module.exports.create = function(req, res) {
       nom : req.body.nom,
       description : req.body.description,
       prixDeVente : req.body.prixDeVente,
-      prixDeRevien : req.body.prixDeRevien,
+      prixDeRevient : req.body.prixDeRevient,
       statutDisponibilite : req.body.statutDisponibilite,
       imagePath : req.body.imagePath                    
     });

@@ -8,8 +8,12 @@ import { AuthenticationService } from './authentication.service';
 export interface PlatDetails {
   nom: string;
   description: string;
-  prixDeVente: number;
-  prixDeRevien: number;
+  prixDeVente:  {
+    $numberDecimal: number
+  };
+  prixDeRevient:  {
+    $numberDecimal: number
+  };
   statutDisponibilite: string;
   imagePath: string;
 }

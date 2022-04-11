@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoleGuardGuard } from '../services/guards/role-guard.guard';
 import { PlatDetails, PlatService } from '../services/plat.service';
 
 @Component({
@@ -10,12 +11,16 @@ export class ProductPlatComponent implements OnInit {
   platListe : PlatDetails[]= [{
     nom: 'test',
     description: '',
-    prixDeVente: 0,
-    prixDeRevien: 0,
+    prixDeVente: {
+      $numberDecimal: 0
+    },
+    prixDeRevient:  {
+      $numberDecimal: 0
+    },
     statutDisponibilite: '',
     imagePath: '',
   }]
-  constructor(private plat: PlatService) { }
+  constructor(private plat: PlatService, public role: RoleGuardGuard) { }
 
   ngOnInit(): void {
    this.plat.getPlats().subscribe((data: any[])=>{

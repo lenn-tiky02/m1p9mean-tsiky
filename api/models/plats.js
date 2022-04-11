@@ -9,14 +9,8 @@ var platSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  prixDeVente:{
-    type: mongoose.Decimal128,
-    required: true
-  },
-  prixDeRevien:{
-    type: mongoose.Decimal128,
-    required: true
-  },
+  prixDeVente: mongoose.Types.Decimal128,  
+  prixDeRevient: mongoose.Types.Decimal128,    
   statutDisponibilite: {            
     type: String,
     required: true

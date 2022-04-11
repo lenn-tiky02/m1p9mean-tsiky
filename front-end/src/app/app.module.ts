@@ -27,6 +27,11 @@ import { SpinnerInterceptor } from './services/spinner-interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { EnvoiMailComponent } from './envoi-mail/envoi-mail.component';
 import { MailService } from './services/mail.service';
+import { UploadService } from './services/upload.service';
+
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/compat/storage";
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,9 @@ import { MailService } from './services/mail.service';
     BrowserAnimationsModule,
     DragDropModule,
     MatProgressSpinnerModule,
-    OverlayModule
+    OverlayModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud")
   ],
   providers: [  
     AuthenticationService, 
@@ -63,7 +70,8 @@ import { MailService } from './services/mail.service';
       useClass: SpinnerInterceptor,
       multi: true,
     },
-    MailService
+    MailService,
+    UploadService
   ],
   bootstrap: [AppComponent] 
 })
