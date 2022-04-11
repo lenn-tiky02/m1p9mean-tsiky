@@ -25,6 +25,8 @@ import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
 import { SpinnerInterceptor } from './services/spinner-interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { EnvoiMailComponent } from './envoi-mail/envoi-mail.component';
+import { MailService } from './services/mail.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     PlatManagementComponent,
     RestaurantAdminComponent,
     ProductPlatComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    EnvoiMailComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    }
+    },
+    MailService
   ],
   bootstrap: [AppComponent] 
 })

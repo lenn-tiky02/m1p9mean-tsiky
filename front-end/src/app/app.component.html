@@ -1,19 +1,3 @@
-<!--<div class="navbar navbar-default">
-  <div class="container">
-    <div id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li><a routerLink="/">Home</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!auth.isLoggedIn()"><a routerLink="/login">Sign in</a></li>
-        <li *ngIf="auth.isLoggedIn()"><a routerLink="/profile">{{ auth.getUserDetails()?.name }}</a></li>
-        <li *ngIf="auth.isLoggedIn()"><a (click)="auth.logout()">Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
--->
-
   <!-- Navbar -->
   <nav class="navbar navbar-expand-md bg-dark fixed-top">
     <div class="container"> <a class="navbar-brand" routerLink="/">
@@ -25,6 +9,7 @@
       <div class="collapse navbar-collapse" id="navbar11">
         <ul class="navbar-nav mr-auto">
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Restaurant Management</a> </li>
+          <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/envoieMail">Envoi mail</a> </li>
         <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>--> 
         </ul> 

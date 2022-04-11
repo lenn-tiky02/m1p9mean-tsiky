@@ -11,6 +11,7 @@ import { CommandeListeComponent } from './commande-liste/commande-liste.componen
 import { RestaurantAdminComponent } from './restaurant-admin/restaurant-admin.component';
 import { PlatManagementComponent } from './plat-management/plat-management.component';
 import { ProductPlatComponent } from './product-plat/product-plat.component';
+import { EnvoiMailComponent } from './envoi-mail/envoi-mail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'productPlat', component: ProductPlatComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Client']}},
   { path: 'restaurantAdmin', component: RestaurantAdminComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'platManagement', component: PlatManagementComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
+  { path: 'envoieMail', component: EnvoiMailComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur','Ekaly']}},
   { path: 'commandes', component: CommandeListeComponent, canActivate: [AuthGuardService]}
 ];
 

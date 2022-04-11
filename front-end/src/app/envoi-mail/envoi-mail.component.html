@@ -1,0 +1,17 @@
+<div class="py-5 text-center text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;" >
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto col-md-10 p-4">
+          <h1 class="text-light">Envoi emails</h1>
+          <p class="mb-4 lead text-light">Remplir les champs ci-dessous pour envoyer un ou plusieurs emails.</p>
+          <form (submit)="envoyerMail()">
+              
+            <div class="form-group"> <input type="email" class="form-control" id="form23" name="to" placeholder="Emails" [(ngModel)]="mailObject.to"> </div>       
+            <div class="form-group"> <input type="text" class="form-control" id="form25"  name="subject" placeholder="Objet" [(ngModel)]="mailObject.subject"> </div>
+            <div class="form-group"> <textarea class="form-control" id="mailEditor"  name="text" rows="3" placeholder="Votre message" [(ngModel)]="mailObject.text"></textarea> </div> 
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
