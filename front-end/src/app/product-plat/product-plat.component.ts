@@ -8,7 +8,9 @@ import { PlatDetails, PlatService } from '../services/plat.service';
   styleUrls: ['./product-plat.component.css']
 })
 export class ProductPlatComponent implements OnInit {
+
   platListe : PlatDetails[]= [{
+    _id: '',
     nom: 'test',
     description: '',
     prixDeVente: {
@@ -22,7 +24,7 @@ export class ProductPlatComponent implements OnInit {
   }]
   constructor(private plat: PlatService, public role: RoleGuardGuard) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
    this.plat.getPlats().subscribe((data: any[])=>{
       console.log(data);
       this.platListe = data;

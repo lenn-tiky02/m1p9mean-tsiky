@@ -15,10 +15,7 @@ var platSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imagePath: {
-    type: String,
-    required: true
-  }
+  imagePath: String
 });
 
 mongoose.model('Plat', platSchema);

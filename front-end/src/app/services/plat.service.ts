@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 
 export interface PlatDetails {
+  _id: string | null;
   nom: string;
   description: string;
   prixDeVente:  {
@@ -15,7 +16,7 @@ export interface PlatDetails {
     $numberDecimal: number
   };
   statutDisponibilite: string;
-  imagePath: string;
+  imagePath: string | null;
 }
 
 @Injectable()
@@ -23,23 +24,34 @@ export class PlatService {
   
   constructor(private http: HttpClient, private auth: AuthenticationService) {}
 
-  public ajouterPlat(plat: PlatDetails): Observable<any> {
-    console.log("****************");
-    console.log(plat);
-    console.log(this.auth.getToken());
-    console.log("****************");
+  public ajouterPlat(plat: PlatDetails): Observable<any> {    
     const body=JSON.stringify(plat);
     console.log(body)
     let returnn =  this.http.post<PlatDetails>(`/api/plats`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
-    .pipe(retry(1), catchError(this.handleError));
-    console.log("****************");
-    console.log(returnn);
-    console.log("****************");
+    .pipe(retry(1), catchError(this.handleError));   
+    return returnn;
+  }
+
+  public modifierPlat(plat: PlatDetails): Observable<any> {    
+    const body=JSON.stringify(plat);
+    console.log(body)
+    let returnn =  this.http.put<PlatDetails>(`/api/plats/`+ plat._id, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    .pipe(retry(1), catchError(this.handleError));   
+    return returnn;
+  }
+
+  public supprimerPlat(id: String): Observable<any> {        
+    let returnn =  this.http.delete<PlatDetails>(`/api/plats/`+ id, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    .pipe(retry(1), catchError(this.handleError));   
     return returnn;
   }
 
   public getPlats(): Observable<PlatDetails[]>{
     return this.http.get<PlatDetails[]>(`/api/plats`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
+  public getPlatById(id: string): Observable<PlatDetails>{
+    return this.http.get<PlatDetails>(`/api/plats/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   // Error handling

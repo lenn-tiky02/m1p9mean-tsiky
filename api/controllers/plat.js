@@ -47,7 +47,7 @@ module.exports.findById = function(req, res) {
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Plat with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot update Plat with id=${id}. Maybe Plat was not found!`
         });
       } else res.send({ message: "Plat was updated successfully." });
     })
@@ -81,7 +81,7 @@ module.exports.delete = function(req,res){
 
 module.exports.create = function(req, res) {
 
-    if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevient || !req.body.statutDisponibilite|| !req.body.imagePath) {
+    if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevient || !req.body.statutDisponibilite) {
       sendJSONresponse(res, 400, {
         "message": "All fields required"
       });
