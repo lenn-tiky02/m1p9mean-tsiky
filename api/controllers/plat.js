@@ -21,8 +21,9 @@ module.exports.findAll = function(req, res) {
 
 module.exports.findByRestaurant = function(req, res) {
   const id = req.params.id;
+  console.log(id + 'this is my idddd');
   Plat.find({
-    idRestaurant: id
+    restaurantId: id
   })
     .then(data => {
       if (!data)

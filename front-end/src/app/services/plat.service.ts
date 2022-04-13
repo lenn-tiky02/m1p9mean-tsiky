@@ -56,6 +56,10 @@ export class PlatService {
     return this.http.get<PlatDetails>(`/api/plats/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
+  public getPlatByRestaurant(id: string | null): Observable<PlatDetails[]>{
+    return this.http.get<PlatDetails[]>(`/api/plats/restaurant/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
   // Error handling
   handleError(error: any) {
     let errorMessage = '';

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 import { RoleGuardGuard } from '../services/guards/role-guard.guard';
 import { PlatDetails, PlatService } from '../services/plat.service';
 
@@ -24,13 +25,21 @@ export class ProductPlatComponent implements OnInit {
     fileName: '',
     restaurantId: ''
   }]
-  constructor(private plat: PlatService, public role: RoleGuardGuard) { }
+  constructor(private plat: PlatService, public role: RoleGuardGuard, public auth: AuthenticationService) { }
 
   ngOnInit(): void {    
-   this.plat.getPlats().subscribe((data: any[])=>{
-      console.log(data);
-      this.platListe = data;
-    });
+    if(this.auth.getUserRoles()[0].name === 'Restaurateur'){
+      this.plat.getPlatByRestaurant(this.auth.getUserRoles()[0].roleid).subscribe((data: any[])=>{
+        console.log(data);
+        this.platListe = data;
+      });
+    }else{
+      this.plat.getPlats().subscribe((data: any[])=>{
+        console.log(data);
+        this.platListe = data;
+      });
+    }
+   
   }
 
 }
