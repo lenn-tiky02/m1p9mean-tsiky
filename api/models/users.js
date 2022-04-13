@@ -13,12 +13,14 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   roles: {
-    type: [String],
+    type: [{
+      name: String,
+      roleid: String
+    }],
     required: true
   },
   hash: String,
-  salt: String,
-  clientId: mongoose.Schema.Types.ObjectId
+  salt: String
 });
 
 userSchema.methods.setPassword = function(password){

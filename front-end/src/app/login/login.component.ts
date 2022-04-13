@@ -18,9 +18,9 @@ export class LoginComponent {
 
   login() {    
     this.auth.login(this.credentials).subscribe(() => {
-      if(this.auth.getUserRoles()[0] === 'Restaurateur'){
+      if(this.auth.getUserRoles()[0].name === 'Restaurateur'){
         this.router.navigateByUrl('/restaurantAdmin');
-       }else if(this.auth.getUserRoles()[0] === 'Client'){
+       }else if(this.auth.getUserRoles()[0].name === 'Client'){
         this.router.navigateByUrl('/productPlat');
        }
       

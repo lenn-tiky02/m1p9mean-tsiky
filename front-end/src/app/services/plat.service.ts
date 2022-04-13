@@ -17,6 +17,8 @@ export interface PlatDetails {
   };
   statutDisponibilite: string;
   imagePath: string | null;
+  fileName: string | null;
+  restaurantId: string | null;
 }
 
 @Injectable()

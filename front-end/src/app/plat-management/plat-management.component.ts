@@ -6,6 +6,7 @@ import { AngularFireStorage} from "@angular/fire/compat/storage";
 import { finalize, Observable } from 'rxjs';
 import { SpinnerOverlayService } from '../services/spinner-overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-plat-management',
@@ -26,7 +27,9 @@ export class PlatManagementComponent implements OnInit {
       $numberDecimal: 0
     },
     statutDisponibilite: '',
-    imagePath: null
+    imagePath: '',
+    fileName: '',
+    restaurantId: ''
   }
 
   status = ["disponible" ,"non disponible"];
@@ -37,7 +40,7 @@ export class PlatManagementComponent implements OnInit {
   fb: any;
   downloadURL: Observable<string> | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute, private platService: PlatService,  private formsModule: FormsModule, private uploadService: UploadService, private storage: AngularFireStorage, private readonly spinnerOverlayService: SpinnerOverlayService) { }
+  constructor(private auth: AuthenticationService, private router: Router, private route: ActivatedRoute, private platService: PlatService,  private formsModule: FormsModule, private uploadService: UploadService, private storage: AngularFireStorage, private readonly spinnerOverlayService: SpinnerOverlayService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe( 
@@ -56,6 +59,7 @@ export class PlatManagementComponent implements OnInit {
   }
 
   enregistrer() {    
+    this.platVariable.restaurantId = this.auth.getUserRoles()[0].roleid;
     if(this.selectedFile){
       this.uploadFileAndSave(this.selectedFile);  
     }else{
@@ -69,11 +73,17 @@ export class PlatManagementComponent implements OnInit {
   }
 
   modifierPlat() {    
-    this.platService.modifierPlat(this.platVariable)  
-            .subscribe(data => {
-              console.log(data);
-              window.location.reload();          
-            });
+    this.platVariable.restaurantId = this.auth.getUserRoles()[0].roleid;
+    if(this.selectedFile){
+      this.uploadFileAndUpdate(this.selectedFile);  
+    }else{
+      this.platService.modifierPlat(this.platVariable)  
+      .subscribe(data => {
+        console.log(data);
+        window.location.reload();          
+      });
+    }
+    
   }
 
   supprimerPlat(id: String){
@@ -88,6 +98,7 @@ export class PlatManagementComponent implements OnInit {
     if(event.target.files && event.target.files.length) {
       const file = event.target.files[0];
       this.selectedFile = file;
+      this.platVariable.fileName = file.name;
     }
   }
 
@@ -110,6 +121,39 @@ export class PlatManagementComponent implements OnInit {
             this.spinnerOverlayService.hide();
             console.log(this.fb);
             this.platService.ajouterPlat(this.platVariable)  
+            .subscribe(data => {
+              console.log(data);
+              window.location.reload();          
+            });
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+        }
+      });
+  }
+
+  
+  uploadFileAndUpdate(file: File){
+    this.spinnerOverlayService.show();
+    var n = Date.now();
+    const filePath = `PlatsImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`PlatsImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe((url: any) => {
+            if (url) {
+              this.fb = url;
+            }
+            this.platVariable.imagePath = this.fb;
+            this.spinnerOverlayService.hide();
+            console.log(this.fb);
+            this.platService.modifierPlat(this.platVariable)  
             .subscribe(data => {
               console.log(data);
               window.location.reload();          

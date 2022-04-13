@@ -1,8 +1,8 @@
 var mongoose = require( 'mongoose' );
 
 var clientSchema = new mongoose.Schema({ 
-  userId: mongoose.Schema.Types.ObjectId,
   adresseLivraison: String,
+  email: String,
   telephone: String,
   location: String,
   zoneId: String

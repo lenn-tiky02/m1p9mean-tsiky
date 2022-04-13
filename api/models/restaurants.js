@@ -10,18 +10,13 @@ var restaurantSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: [String],
+    type: String,
     required: true
   },
   telephone: {
     type: String,
     required: true
-  },
-  imagePath: {
-    type: String,
-    required: true
-  },
-  listePlats: [mongoose.Schema.Types.ObjectId]
+  }
 });
 
 mongoose.model('Restaurant', restaurantSchema);

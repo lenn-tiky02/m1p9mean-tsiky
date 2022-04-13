@@ -15,6 +15,7 @@
                         <label>Prix de revient</label>
                         <input type="text" class="form-control" id="pdr" name="pdr" placeholder="Prix de revient" [(ngModel)]="platVariable.prixDeRevient.$numberDecimal"> </div>
                     <div class="form-group"> 
+                        <label>Statut</label>
                     <select [(ngModel)]='platVariable.statutDisponibilite' name="dropdownOption" id="dropdownOption" class='form-control'>
                         <option *ngFor="let statut of status" [ngValue]="statut">
                             {{statut}}
@@ -32,7 +33,11 @@
 </div>
 
 <div  *ngIf="platVariable._id" class="py-5 text-center" >
-    <div class="container">
+    <div class="container">        
+        <div class="row" >
+            <div class="col-md-6"><button class="btn btn-warning" routerLink="/restaurantAdmin">Annuler</button></div>
+            <div class="col-md-6"><button class="btn btn-danger" (click)="supprimerPlat(platVariable._id)">Supprimer</button></div>
+        </div>          
         <div class="row">
             <div class="mx-auto p-4 col-lg-7">
                 <h1 class="mb-4">Modifier un plat</h1>
@@ -48,27 +53,22 @@
                     <div class="form-group">                         
                         <label>Prix de revient</label>
                         <input type="text" class="form-control" id="pdr" name="pdr" placeholder="Prix de revient" [(ngModel)]="platVariable.prixDeRevient.$numberDecimal"> </div>
-                    <div class="form-group"> 
-                    <select [(ngModel)]='platVariable.statutDisponibilite' name="dropdownOption" id="dropdownOption" class='form-control'>
-                        <option *ngFor="let statut of status" [ngValue]="statut">
-                            {{statut}}
-                        </option>
-                    </select>
+                    <div class="form-group">       
+                        <label>Statut</label>
+                        <select [(ngModel)]='platVariable.statutDisponibilite' name="dropdownOption" id="dropdownOption" class='form-control'>
+                            <option *ngFor="let statut of status" [ngValue]="statut">
+                                {{statut}}
+                            </option>
+                        </select>
                     </div>
 
                     <div class="form-group"> 
                         <input type="file" class="form-control" id="imagePath" name="imagePath" placeholder="Image Path" (change)="onFileSelected($event)" accept=".png,.jpg"> 
                     </div>
                     <img *ngIf="platVariable.imagePath" class="img-fluid d-block w-100 mb-3" src="{{platVariable.imagePath}}">
-
-                    <input type="hidden" class="form-control" id="id" name="id"[(ngModel)]="platVariable._id"> 
                     <button type="submit" class="btn btn-primary">Modifier</button> 
                                              
-                </form> 
-                <div class="py-5 text-right" >
-                    <button class="btn btn-danger" (click)="supprimerPlat(platVariable._id)">Supprimer</button>
-                </div>
-                
+                </form>                            
             </div>
         </div>
     </div>

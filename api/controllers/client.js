@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Plat = mongoose.model('Plat');
+var Client = mongoose.model('Client');
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -7,47 +7,47 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 module.exports.findAll = function(req, res) {
- Plat.find()
+ Client.find()
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Plats."
+          err.message || "Some error occurred while retrieving Clients."
       });
     });
 };
 
-module.exports.findByRestaurant = function(req, res) {
-  const id = req.params.id;
-  Plat.find({
-    idRestaurant: id
+module.exports.findByEmail = function(req, res) {
+  const mail = req.body.email;
+  Client.find({
+    email: mail
   })
     .then(data => {
       if (!data)
-        res.status(404).send({ message: "Not found Plat with id " + id });
+        res.status(404).send({ message: "Not found Client with id " + id });
       else res.send(data);
     })
     .catch(err => {
       res
         .status(500)
-        .send({ message: "Error retrieving Plat with id=" + id });
+        .send({ message: "Error retrieving Client with id=" + id });
     });
  };
 
  module.exports.findById = function(req, res) {
    const id = req.params.id;
-   Plat.findById(id)
+   Client.find(id)
      .then(data => {
        if (!data)
-         res.status(404).send({ message: "Not found Plat with id " + id });
+         res.status(404).send({ message: "Not found Client with id " + id });
        else res.send(data);
      })
      .catch(err => {
        res
          .status(500)
-         .send({ message: "Error retrieving Plat with id=" + id });
+         .send({ message: "Error retrieving Client with id=" + id });
      });
   };
 
@@ -60,45 +60,45 @@ module.exports.findByRestaurant = function(req, res) {
   }
 
   const id = req.params.id;
-  Plat.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Client.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Plat with id=${id}. Maybe Plat was not found!`
+          message: `Cannot update Client with id=${id}. Maybe Client was not found!`
         });
-      } else res.send({ message: "Plat was updated successfully." });
+      } else res.send({ message: "Client was updated successfully." });
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Plat with id=" + id
+        message: "Error updating Client with id=" + id
       });
     });
 }
 
 module.exports.delete = function(req,res){
   const id = req.params.id;
-  Plat.findByIdAndRemove(id)
+  Client.findByIdAndRemove(id)
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Plat with id=${id}. Maybe Plat was not found!`
+          message: `Cannot delete Client with id=${id}. Maybe Client was not found!`
         });
       } else {
         res.send({
-          message: "Plat was deleted successfully!"
+          message: "Client was deleted successfully!"
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Plat with id=" + id
+        message: "Could not delete Client with id=" + id
       });
     });
 }
 
 module.exports.create = function(req, res) {
 
-    if(!req.body.nom || !req.body.description || !req.body.prixDeVente || !req.body.prixDeRevient || !req.body.statutDisponibilite || !req.body.restaurantId) {
+    if(!req.body.email) {
       sendJSONresponse(res, 400, {
         "message": "All fields required"
       });
@@ -106,19 +106,16 @@ module.exports.create = function(req, res) {
     }
 
     // Create a Tutorial
-    const platToSave = new Plat({
-      nom : req.body.nom,
-      description : req.body.description,
-      prixDeVente : req.body.prixDeVente,
-      prixDeRevient : req.body.prixDeRevient,
-      statutDisponibilite : req.body.statutDisponibilite,
-      imagePath : req.body.imagePath,
-      fileName: req.body.fileName,
-      restaurantId: req.body.restaurantId                   
+    const ClientToSave = new Client({       
+      adresseLivraison: req.body.adresseLivraison,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      location: req.body.location,
+      zoneId: req.body.zoneId          
     });
 
     // Save Tutorial in the database
-    platToSave
+    ClientToSave
       .save()
       .then(data => {
         res.send(data);
@@ -126,7 +123,7 @@ module.exports.create = function(req, res) {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Plat."
+            err.message || "Some error occurred while creating the Client."
         });
       });
 };

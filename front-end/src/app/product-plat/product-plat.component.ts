@@ -11,7 +11,7 @@ export class ProductPlatComponent implements OnInit {
 
   platListe : PlatDetails[]= [{
     _id: '',
-    nom: 'test',
+    nom: '',
     description: '',
     prixDeVente: {
       $numberDecimal: 0
@@ -21,6 +21,8 @@ export class ProductPlatComponent implements OnInit {
     },
     statutDisponibilite: '',
     imagePath: '',
+    fileName: '',
+    restaurantId: ''
   }]
   constructor(private plat: PlatService, public role: RoleGuardGuard) { }
 

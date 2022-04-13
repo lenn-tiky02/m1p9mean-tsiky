@@ -15,7 +15,9 @@ var platSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imagePath: String
+  imagePath: String,
+  fileName: String,
+  restaurantId: mongoose.Schema.Types.ObjectId
 });
 
 mongoose.model('Plat', platSchema);

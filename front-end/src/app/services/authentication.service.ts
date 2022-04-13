@@ -4,13 +4,18 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+export interface RoleUser {
+  name: string;
+  roleid: string | null;
+}
+
 export interface UserDetails {
   _id: string;
   email: string;
   name: string;
   exp: number;
   iat: number;
-  roles: string[]
+  roles: RoleUser[]
 }
 
 export interface TokenResponse {
@@ -21,7 +26,7 @@ export interface TokenPayload {
   email: string;
   password: string;
   name?: string;
-  roles: string[]
+  roles: RoleUser[]
 }
 
 @Injectable()
@@ -63,7 +68,7 @@ export class AuthenticationService {
     }
   }
 
-  public getUserRoles(): string[] {
+  public getUserRoles(): RoleUser[] {
     const user = this.getUserDetails();
     if (user) {
       return user.roles;
@@ -82,6 +87,8 @@ export class AuthenticationService {
 
     const request = base.pipe(
       map((data: TokenResponse) => {
+        console.log('test token');
+        console.log(data);
         if (data.token) {
           this.saveToken(data.token);
         }
