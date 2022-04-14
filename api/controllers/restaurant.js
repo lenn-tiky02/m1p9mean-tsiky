@@ -20,23 +20,38 @@ module.exports.findAll = function(req, res) {
      });
  };
  
- module.exports.findByName = function(req, res) {
-  const name = req.params.name;
-   Restaurant.find({
-     nom: name
-   })
+ module.exports.findByTextName = function(req, res) {
+  const texte = req.params.text;
+   Restaurant.find(  { "nom": { "$regex": texte, "$options": "i" } })
      .then(data => {
        if (!data)
-         res.status(404).send({ message: "Not found Restaurant with id " + id });
+         res.status(404).send({ message: "Not found Restaurant with text " + texte });
        else res.send(data);
      })
      .catch(err => {
        res
          .status(500)
-         .send({ message: "Error retrieving Restaurant with id=" + id });
+         .send({ message: "Error retrieving Restaurant with text=" + texte });
      });
   };
  
+  module.exports.findByName = function(req, res) {
+    const name = req.params.name;
+     Restaurant.find({
+       nom: name
+     })
+       .then(data => {
+         if (!data)
+           res.status(404).send({ message: "Not found Restaurant with id " + id });
+         else res.send(data);
+       })
+       .catch(err => {
+         res
+           .status(500)
+           .send({ message: "Error retrieving Restaurant with id=" + id });
+       });
+    };
+   
   module.exports.findById = function(req, res) {
     const id = req.params.id;
     Restaurant.find(id)

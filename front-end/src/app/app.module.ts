@@ -33,6 +33,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/compat/storage";
 import { environment } from 'src/environments/environment';
 import { ClientService } from './services/client.service';
+import { RestaurantService } from './services/restaurant.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ClientService } from './services/client.service';
     },
     MailService,
     UploadService,
-    ClientService
+    ClientService,
+    RestaurantService
   ],
   bootstrap: [AppComponent] 
 })

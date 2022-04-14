@@ -41,6 +41,7 @@ router.delete('/clients/:id', auth, ctrlClient.delete);
 router.get('/restaurants', ctrlRestaurant.findAll);
 router.get('/restaurants/:id', auth, ctrlRestaurant.findById);
 router.get('/restaurants/name/:name', auth, ctrlRestaurant.findByName);
+router.get('/restaurants/bytext/:text', ctrlRestaurant.findByTextName);
 router.post('/restaurants', auth, ctrlRestaurant.create);
 router.put('/restaurants/:id', auth, ctrlRestaurant.update);
 router.delete('/restaurants/:id', auth, ctrlRestaurant.delete);

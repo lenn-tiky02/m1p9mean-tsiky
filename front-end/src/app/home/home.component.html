@@ -14,36 +14,28 @@
           <table class="table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Nom</th>
+                <th>Lieu</th>
+                <th>Telephone</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-              </tr>
+              <tr *ngFor="let restaurant of tabResult" >
+                <td>{{restaurant.nom}}</td>
+                <td>{{restaurant.location}}</td>
+                <td>{{restaurant.telephone}}</td>
+              </tr>     
+              <tr *ngIf="tabResult.length === 0">Pas de donnée</tr>       
             </tbody>
           </table>
         </div><a class="btn btn-primary" href="#">Voir plus</a>
       </div>
       <div class="p-5 bg-white ml-auto col-md-6 border">
         <h1>recherche</h1>
-        <form class="">
-          <div class="form-group"> <label>Cherchez votre restaurant ou votre plat préféré</label> <input type="text" class="form-control" placeholder="Restaurant ou plat"> </div> <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+  
+        <label>Commencer par rechercher un restaurant</label> 
+        <input type="text" class="form-control" placeholder="Restaurant ou plat" (change)="onFileSelected($event)" [(ngModel)]="textVariable"> 
+           
       </div>
     </div>
   </div>
