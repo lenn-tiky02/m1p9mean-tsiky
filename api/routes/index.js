@@ -14,6 +14,7 @@ var ctrlPlat = require('../controllers/plat');
 var ctrlClient = require('../controllers/client');
 var ctrlRestaurant = require('../controllers/restaurant');
 var ctrlSendMail = require('../controllers/sendmail');
+var ctrlUser = require('../controllers/user');
 
 //routes
 router.get('/', (req, res) => {
@@ -37,7 +38,7 @@ router.put('/clients/:id', auth, ctrlClient.update);
 router.delete('/clients/:id', auth, ctrlClient.delete);
 
 //restaurants
-router.get('/restaurants', auth, ctrlRestaurant.findAll);
+router.get('/restaurants', ctrlRestaurant.findAll);
 router.get('/restaurants/:id', auth, ctrlRestaurant.findById);
 router.get('/restaurants/name/:name', auth, ctrlRestaurant.findByName);
 router.post('/restaurants', auth, ctrlRestaurant.create);
@@ -51,6 +52,9 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
+
+//users
+router.get('/users', auth, ctrlUser.findAll);
 
 // send mail
 router.post('/sendMail', ctrlSendMail.sendMail);

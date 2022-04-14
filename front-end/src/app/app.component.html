@@ -23,7 +23,8 @@
         <ul class="navbar-nav mr-auto">
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Restaurant Management</a> </li>
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/envoieMail">Envoi mail</a> </li>
-        <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+          <app-profile *ngIf="role.isNavAuthorised(['Client'])"></app-profile>
+          <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>--> 
         </ul> 
         <ul class="navbar-nav ml-auto">
@@ -37,7 +38,6 @@
   </nav>
   <!-- End Navbar-->
 
-<app-profile *ngIf="role.isNavAuthorised(['Client'])"></app-profile>
 <router-outlet></router-outlet>
 
   <!-- Footer -->
