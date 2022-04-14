@@ -15,6 +15,7 @@ var ctrlClient = require('../controllers/client');
 var ctrlRestaurant = require('../controllers/restaurant');
 var ctrlSendMail = require('../controllers/sendmail');
 var ctrlUser = require('../controllers/user');
+var ctrlCmd = require('../controllers/commande');
 
 //routes
 router.get('/', (req, res) => {
@@ -36,6 +37,13 @@ router.get('/clients/email', auth, ctrlClient.findByEmail);
 router.post('/clients', ctrlClient.create);
 router.put('/clients/:id', auth, ctrlClient.update);
 router.delete('/clients/:id', auth, ctrlClient.delete);
+
+//commandes
+router.get('/commandes', auth, ctrlCmd.findAll);
+router.get('/commandes/:id', auth, ctrlCmd.findById);
+router.post('/commandes', ctrlCmd.create);
+router.put('/commandes/:id', auth, ctrlCmd.update);
+router.delete('/commandes/:id', auth, ctrlCmd.delete);
 
 //restaurants
 router.get('/restaurants', ctrlRestaurant.findAll);

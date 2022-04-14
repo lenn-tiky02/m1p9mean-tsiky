@@ -12,7 +12,7 @@
             <h5 class="text-dark"><b>{{plat.nom}}</b></h5>
             <p class="mb-3">{{plat.description}}</p>
 
-            <a *ngIf="role.isNavAuthorised(['Client'])" href="#" class="btn btn-outline-primary"><b class="">Commander</b></a>
+            <a *ngIf="role.isNavAuthorised(['Client'])" (change)="CreateOrAddCommand(plat._id)" class="btn btn-outline-primary">Commander</a>
             <a *ngIf="role.isNavAuthorised(['Restaurateur'])" href="/platManagement/{{plat._id}}" class="btn btn-outline-primary"><b class="">Modifier</b></a>
           </div>
          

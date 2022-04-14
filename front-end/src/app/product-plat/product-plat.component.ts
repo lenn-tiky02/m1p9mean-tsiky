@@ -11,21 +11,7 @@ import { PlatDetails, PlatService } from '../services/plat.service';
 })
 export class ProductPlatComponent implements OnInit {
 
-  platListe : PlatDetails[]= [{
-    _id: '',
-    nom: '',
-    description: '',
-    prixDeVente: {
-      $numberDecimal: 0
-    },
-    prixDeRevient:  {
-      $numberDecimal: 0
-    },
-    statutDisponibilite: '',
-    imagePath: '',
-    fileName: '',
-    restaurantId: ''
-  }]
+  platListe : PlatDetails[]= [];
 
   constructor(private plat: PlatService, public role: RoleGuardGuard, public auth: AuthenticationService, private route: ActivatedRoute) { }
 
@@ -33,28 +19,31 @@ export class ProductPlatComponent implements OnInit {
      this.route.params.subscribe( 
       params => {
       if (params['idRestaurant']) { 
-        //this.doSearch(params['term'])
-        console.log('******************');
-        console.log(params['idRestaurant']);
         this.plat.getPlatByRestaurant(params['idRestaurant'])
         .subscribe((data: PlatDetails[])=>{
           console.log(data);
           this.platListe = data;
         });
+
       }else if(this.auth.getUserRoles()[0].name === 'Restaurateur'){
         this.plat.getPlatByRestaurant(this.auth.getUserRoles()[0].roleid).subscribe((data: any[])=>{
           console.log(data);
           this.platListe = data;
         });
+
       }else{
         this.plat.getPlats().subscribe((data: any[])=>{
           console.log(data);
           this.platListe = data;
         });
+
       }
      
     });
    
   }
 
+  CreateOrAddCommand(id: string | null){
+
+  }
 }
