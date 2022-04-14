@@ -34,6 +34,7 @@ import { AngularFireStorageModule, AngularFireStorageReference, AngularFireUploa
 import { environment } from 'src/environments/environment';
 import { ClientService } from './services/client.service';
 import { RestaurantService } from './services/restaurant.service';
+import { CommandeAssignationComponent } from './commande-assignation/commande-assignation.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RestaurantService } from './services/restaurant.service';
     RestaurantAdminComponent,
     ProductPlatComponent,
     SpinnerOverlayComponent,
-    EnvoiMailComponent
+    EnvoiMailComponent,
+    CommandeAssignationComponent
   ],
   imports: [
     BrowserModule,
