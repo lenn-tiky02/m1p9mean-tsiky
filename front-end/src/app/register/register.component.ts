@@ -44,7 +44,7 @@ export class RegisterComponent {
   private enregistrerUser(){
     console.log(this.credentials)
     this.auth.register(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/productPlat');
+      this.router.navigateByUrl('/');
     }, (err) => {
       console.error(err);
     });

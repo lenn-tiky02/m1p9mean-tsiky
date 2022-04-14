@@ -21,7 +21,7 @@ export class LoginComponent {
       if(this.auth.getUserRoles()[0].name === 'Restaurateur'){
         this.router.navigateByUrl('/restaurantAdmin');
        }else if(this.auth.getUserRoles()[0].name === 'Client'){
-        this.router.navigateByUrl('/productPlat');
+        this.router.navigateByUrl('/');
        }
       
     }, (err) => {

@@ -14,6 +14,7 @@
           <table class="table">
             <thead>
               <tr>
+                <th></th>
                 <th>Nom</th>
                 <th>Lieu</th>
                 <th>Telephone</th>
@@ -21,6 +22,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let restaurant of tabResult" >
+                <td><a routerLink="/productPlat/{{restaurant._id}}"><i class="fa fa-eye fa-fw"></i></a></td>
                 <td>{{restaurant.nom}}</td>
                 <td>{{restaurant.location}}</td>
                 <td>{{restaurant.telephone}}</td>
