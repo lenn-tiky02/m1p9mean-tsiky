@@ -8,9 +8,9 @@ var sendJSONresponse = function(res, status, content) {
 
 module.exports.findAll = function(req, res) {
  Commande.find()
+    .populate('idClient')
     .populate('idRestaurant')
     .populate('listePlats')
-    .populate('idClient')
     .then(data => {
       res.send(data);
     })
@@ -42,7 +42,10 @@ module.exports.findByRestaurant = function(req, res) {
 
  module.exports.findById = function(req, res) {
    const id = req.params.id;
-   Commande.findById(id)
+   Commande.findById(id)   
+    .populate('idClient')   
+    .populate('idRestaurant')
+    .populate('listePlats')
      .then(data => {
        if (!data)
          res.status(404).send({ message: "Not found Commande with id " + id });
@@ -70,7 +73,7 @@ module.exports.findByRestaurant = function(req, res) {
         res.status(404).send({
           message: `Cannot update Commande with id=${id}. Maybe Commande was not found!`
         });
-      } else res.send({ message: "Commande was updated successfully." });
+      } else res.send(data);
     })
     .catch(err => {
       res.status(500).send({

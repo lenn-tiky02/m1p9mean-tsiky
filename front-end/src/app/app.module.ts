@@ -35,6 +35,7 @@ import { environment } from 'src/environments/environment';
 import { ClientService } from './services/client.service';
 import { RestaurantService } from './services/restaurant.service';
 import { CommandeAssignationComponent } from './commande-assignation/commande-assignation.component';
+import { CommandeService } from './services/commande.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { CommandeAssignationComponent } from './commande-assignation/commande-as
     MailService,
     UploadService,
     ClientService,
-    RestaurantService
+    RestaurantService,
+    CommandeService
   ],
   bootstrap: [AppComponent] 
 })
