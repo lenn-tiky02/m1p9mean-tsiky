@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <table class="table text-center">
+          <table class="table text-center table-hover">
             <thead>
               <tr>
                 <th>&nbsp;</th>
@@ -15,17 +15,54 @@
                 <th class="text-center">
                   <b>Restaurant</b> 
                 </th>
+                <th class="text-center">
+                  <b>Validation</b> 
+                </th>
               </tr>              
             </thead>
             <tbody>
-              <tr  *ngFor="let commande of commandeRead" >
-                <td></td>
-                <td>{{commande.statut}}</td>
-                <td>{{commande?.totalPrixDeVente?.toString() | currency: 'Ar '}}</td>
-                <td>{{commande?.idRestaurant?.nom}}</td>
-              </tr>
+              <ng-container *ngFor="let commande of commandeRead">
+                <tr (click)="commande.showRow = !commande.showRow">
+                  <td><button class="btn btn-default btn-xs"><i class="fa fa-eye fa-fw"></i></button></td>
+                  <td>{{commande.statut}}</td>
+                  <td>{{commande?.totalPrixDeVente?.toString() | currency: 'Ar '}}</td>
+                  <td>{{commande?.idRestaurant?.nom}}</td>
+                  <td><button class="btn btn-default btn-xs" style="color: #12bbad"><i class="fa fa-check fa-fw"></i> Valider</button></td>
+                </tr>
+                <tr *ngIf="commande.showRow" colspan="6" >
+                  <td  colspan="5">
+                    <p>Liste des plats dans la commande choisie</p>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th class="text-center">
+                            <b>Nom</b> 
+                          </th>
+                          <th class="text-center">
+                            <b>Description</b> 
+                          </th>
+                          <th class="text-center">
+                            <b>Prix</b> 
+                          </th>
+                        </tr>              
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let plat of commande.listePlats">
+                            <td><a href="#"><i class="fa fa-trash fa-fw" style="color:red"></i></a></td>
+                            <td>{{plat.nom}}</td> 
+                            <td>{{plat.description}}</td>
+                            <td>{{plat?.prixDeVente?.$numberDecimal?.toString() | currency: 'Ar '}}</td>
+                          </tr>                    
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </ng-container>
+            
             </tbody>
           </table>
+
         </div>
       </div>
     </div>

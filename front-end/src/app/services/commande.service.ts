@@ -19,6 +19,7 @@ export interface CommandeReadDetails {
   totalPrixDeVente: Number | null;
   totalPrixDeRevient: Number | null;
   totalPrixBenefice: Number | null;
+  showRow: Boolean;
 }
 
 export interface CommandeAddDetails { 

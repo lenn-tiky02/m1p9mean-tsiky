@@ -21,6 +21,7 @@ export class CommandeListeComponent implements OnInit {
 
   commandeRead : CommandeReadDetails[] = [];
   
+  boolTest: Boolean = false;
   constructor(private commandeService: CommandeService, private auth: AuthenticationService) { }
 /*
   ngDoCheck(): void{
