@@ -15,7 +15,10 @@ export interface CommandeReadDetails {
   idRestaurant: RestaurantDetails | null;
   statut: String;
   dateCommande: Date | null;
-  dateLivraison: Date | null;
+  dateLivraison: Date | null;  
+  totalPrixDeVente: Number | null;
+  totalPrixDeRevient: Number | null;
+  totalPrixBenefice: Number | null;
 }
 
 export interface CommandeAddDetails { 
@@ -36,7 +39,7 @@ export class CommandeService {
   public ajouterCommande(Commande: CommandeAddDetails): Observable<any> {    
     const body=JSON.stringify(Commande);
     console.log(body)
-    let returnn =  this.http.post<CommandeAddDetails>(`/api/Commandes`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    let returnn =  this.http.post<CommandeAddDetails>(`/api/commandes`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));   
     return returnn;
   }
@@ -44,27 +47,31 @@ export class CommandeService {
   public modifierCommande(Commande: CommandeAddDetails): Observable<any> {    
     const body=JSON.stringify(Commande);
     console.log(body)
-    let returnn =  this.http.put<CommandeAddDetails>(`/api/Commandes/`+ Commande._id, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    let returnn =  this.http.put<CommandeAddDetails>(`/api/commandes/`+ Commande._id, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));   
     return returnn;
   }
 
   public supprimerCommande(id: String): Observable<any> {        
-    let returnn =  this.http.delete<CommandeAddDetails>(`/api/Commandes/`+ id, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    let returnn =  this.http.delete<CommandeAddDetails>(`/api/commandes/`+ id, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));   
     return returnn;
   }
 
   public getCommandes(): Observable<CommandeReadDetails[]>{
-    return this.http.get<CommandeReadDetails[]>(`/api/Commandes`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   public getCommandeById(id: string): Observable<CommandeReadDetails>{
-    return this.http.get<CommandeReadDetails>(`/api/Commandes/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+    return this.http.get<CommandeReadDetails>(`/api/commandes/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   public getCommandeByRestaurant(id: string | null): Observable<CommandeReadDetails[]>{
-    return this.http.get<CommandeReadDetails[]>(`/api/Commandes/restaurant/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes/restaurant/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
+  public getCommandeByClient(id: string | null): Observable<CommandeReadDetails[]>{
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes/client/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   // Error handling

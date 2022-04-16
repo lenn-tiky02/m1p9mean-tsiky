@@ -6,7 +6,10 @@ var commandeSchema = new mongoose.Schema({
   idRestaurant: {type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant'},
   statut: String,
   dateCommande: Date,
-  dateLivraison: Date
+  dateLivraison: Date,
+  totalPrixDeVente: Number,
+  totalPrixDeRevient: Number,
+  totalPrixBenefice: Number
 });
 
 mongoose.model('Commande', commandeSchema);

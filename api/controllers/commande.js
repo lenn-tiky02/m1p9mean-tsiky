@@ -26,7 +26,7 @@ module.exports.findByRestaurant = function(req, res) {
   const id = req.params.id;
   console.log(id + 'this is my idddd');
   Commande.find({
-    restaurantId: id
+    idRestaurant: id
   })
     .then(data => {
       if (!data)
@@ -37,6 +37,41 @@ module.exports.findByRestaurant = function(req, res) {
       res
         .status(500)
         .send({ message: "Error retrieving Commande with id=" + id });
+    });
+ };
+
+ module.exports.findByClient = function(req, res) {
+  const id = req.params.id;
+  Commande.find({
+    idClient: id
+  })   
+  .populate('idClient')   
+  .populate('idRestaurant')
+  .populate('listePlats')
+    .then(data => {
+      if (!data){
+        res.status(404).send({ message: "Not found Commande with idClient " + id });
+      }       
+      else {
+        data.forEach(data => {
+          let totalVente = 0;
+          let totalRevient = 0;
+           data.listePlats.forEach(plat => {
+            totalVente = parseFloat(totalVente) + parseFloat(plat.prixDeVente);
+            totalRevient = parseFloat(totalRevient) + parseFloat(plat.prixDeRevient);
+          });
+                  
+          data.totalPrixDeVente = totalVente;
+          data.totalPrixDeRevient = totalRevient;
+          data.totalPrixBenefice = totalVente - totalRevient;
+        });
+        res.send(data);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Commande with idClient =" + id });
     });
  };
 

@@ -41,6 +41,7 @@ router.delete('/clients/:id', auth, ctrlClient.delete);
 //commandes
 router.get('/commandes', auth, ctrlCmd.findAll);
 router.get('/commandes/:id', auth, ctrlCmd.findById);
+router.get('/commandes/client/:id', auth, ctrlCmd.findByClient);
 router.post('/commandes', ctrlCmd.create);
 router.put('/commandes/:id', auth, ctrlCmd.update);
 router.delete('/commandes/:id', auth, ctrlCmd.delete);
