@@ -79,9 +79,6 @@ module.exports.findByRestaurant = function(req, res) {
  module.exports.findById = function(req, res) {
    const id = req.params.id;
    Commande.findById(id)   
-    .populate('idClient')   
-    .populate('idRestaurant')
-    .populate('listePlats')
      .then(data => {
        if (!data)
          res.status(404).send({ message: "Not found Commande with id " + id });

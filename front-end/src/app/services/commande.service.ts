@@ -63,8 +63,8 @@ export class CommandeService {
     return this.http.get<CommandeReadDetails[]>(`/api/commandes`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
-  public getCommandeById(id: string): Observable<CommandeReadDetails>{
-    return this.http.get<CommandeReadDetails>(`/api/commandes/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  public getCommandeById(id: String | null): Observable<CommandeAddDetails>{
+    return this.http.get<CommandeAddDetails>(`/api/commandes/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   public getCommandeByRestaurant(id: string | null): Observable<CommandeReadDetails[]>{

@@ -21,6 +21,9 @@
                 <th class="text-center">
                   <b>Validation</b> 
                 </th>
+                <th class="text-center">
+                  <b>Suppression</b> 
+                </th>
               </tr>              
             </thead>
             <tbody>
@@ -32,11 +35,12 @@
                   <td>{{commande?.idRestaurant?.nom}}</td>
                   <td>{{commande?.dateCommande | date:'dd/MM/yyy HH:mm'}}</td>
                   <td><button class="btn btn-default btn-xs" style="color: #12bbad"><i class="fa fa-check fa-fw"></i> Valider</button></td>
+                  <td><button class="btn btn-default btn-xs" style="color: red"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
                 </tr>
-                <tr *ngIf="commande.showRow" colspan="6" >
-                  <td  colspan="5">
+                <tr *ngIf="commande.showRow">
+                  <td colspan="7">
                     <p>Liste des plats dans la commande choisie</p>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th>&nbsp;</th>
@@ -52,12 +56,15 @@
                         </tr>              
                       </thead>
                       <tbody>
-                          <tr *ngFor="let plat of commande.listePlats">
-                            <td><a href="#"><i class="fa fa-trash fa-fw" style="color:red"></i></a></td>
-                            <td>{{plat.nom}}</td> 
-                            <td>{{plat.description}}</td>
-                            <td>{{plat?.prixDeVente?.$numberDecimal?.toString() | currency: 'Ar '}}</td>
-                          </tr>                    
+                        <tr *ngFor="let plat of commande.listePlats">
+                          <td><a (click)="onSupressCommande(plat._id, commande._id)"><i class="fa fa-trash fa-fw" style="color:red; cursor: pointer;"></i></a></td>
+                          <td>{{plat.nom}}</td> 
+                          <td>{{plat.description}}</td>
+                          <td>{{plat?.prixDeVente?.$numberDecimal?.toString() | currency: 'Ar '}}</td>
+                        </tr>
+                        <tr *ngIf="commande.listePlats?.length === 0">
+                          <td colspan="4">Pas de donnée</td>
+                        </tr>                         
                       </tbody>
                     </table>
                   </td>
