@@ -48,6 +48,7 @@ module.exports.findByRestaurant = function(req, res) {
   .populate('idClient')   
   .populate('idRestaurant')
   .populate('listePlats')
+  .sort({dateCommande: -1})
     .then(data => {
       if (!data){
         res.status(404).send({ message: "Not found Commande with idClient " + id });

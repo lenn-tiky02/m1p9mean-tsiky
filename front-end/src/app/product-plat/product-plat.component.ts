@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CommandeAddDetails, CommandeService } from '../services/commande.service';
 import { RoleGuardGuard } from '../services/guards/role-guard.guard';
 import { PlatDetails, PlatService } from '../services/plat.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-plat',
@@ -24,7 +25,7 @@ export class ProductPlatComponent implements OnInit {
   platListe : PlatDetails[]= [];
   nbPlat : number = 0;
 
-  constructor(private commande: CommandeService, private plat: PlatService, public role: RoleGuardGuard, public auth: AuthenticationService, private route: ActivatedRoute) { }
+  constructor(private toastr: ToastrService,private commande: CommandeService, private plat: PlatService, public role: RoleGuardGuard, public auth: AuthenticationService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {    
      this.route.params.subscribe( 
@@ -52,8 +53,8 @@ export class ProductPlatComponent implements OnInit {
   }
 
   CreateOrAddCommand(id: string | null){
-    if(!this.commandeVariable.idRestaurant){
-      //show error toaster
+    if(!this.commandeVariable.idRestaurant){      
+      this.toastr.error('Revenez à l\'accueil et choisissez un restaurant pour créer une commande', 'Aucun restaurant choisie!');
 
     }else{
       //  this.commandeVariable._id = id;  
@@ -67,7 +68,9 @@ export class ProductPlatComponent implements OnInit {
         this.commandeVariable.dateCommande = new Date();//.transform(this.myDate, 'yyyy-MM-dd');
         this.commande.ajouterCommande(this.commandeVariable).subscribe((data : CommandeAddDetails) => {
           this.commandeVariable = data;
-          //show toaster nouvelle commande créée
+          this.toastr.success('Votre commande a bien été créer', 'Commande créée!',{
+            positionClass: 'toast-bottom-center'
+          });
         });
 
       }else{
@@ -75,6 +78,9 @@ export class ProductPlatComponent implements OnInit {
         console.log('update');
         this.commande.modifierCommande(this.commandeVariable).subscribe((data : CommandeAddDetails) => {
           this.commandeVariable = data;
+          this.toastr.success('Votre plat a bien été ajouté à la commande', 'Plat ajouté!',{
+            positionClass: 'toast-bottom-center'
+          });
         },(err) => {
           console.error(err);
         });

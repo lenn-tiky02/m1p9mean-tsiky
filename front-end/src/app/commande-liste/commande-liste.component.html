@@ -16,6 +16,9 @@
                   <b>Restaurant</b> 
                 </th>
                 <th class="text-center">
+                  <b>Date</b> 
+                </th>
+                <th class="text-center">
                   <b>Validation</b> 
                 </th>
               </tr>              
@@ -27,6 +30,7 @@
                   <td>{{commande.statut}}</td>
                   <td>{{commande?.totalPrixDeVente?.toString() | currency: 'Ar '}}</td>
                   <td>{{commande?.idRestaurant?.nom}}</td>
+                  <td>{{commande?.dateCommande | date:'dd/MM/yyy HH:mm'}}</td>
                   <td><button class="btn btn-default btn-xs" style="color: #12bbad"><i class="fa fa-check fa-fw"></i> Valider</button></td>
                 </tr>
                 <tr *ngIf="commande.showRow" colspan="6" >

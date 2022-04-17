@@ -36,6 +36,7 @@ import { ClientService } from './services/client.service';
 import { RestaurantService } from './services/restaurant.service';
 import { CommandeAssignationComponent } from './commande-assignation/commande-assignation.component';
 import { CommandeService } from './services/commande.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,12 @@ import { CommandeService } from './services/commande.service';
     MatProgressSpinnerModule,
     OverlayModule,
     AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud")
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    ToastrModule.forRoot({
+      progressBar: true
+      //positionClass: 'toast-bottom-center'
+    //  preventDuplicates : true
+    })
   ],
   providers: [  
     AuthenticationService, 
