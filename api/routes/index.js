@@ -16,6 +16,7 @@ var ctrlRestaurant = require('../controllers/restaurant');
 var ctrlSendMail = require('../controllers/sendmail');
 var ctrlUser = require('../controllers/user');
 var ctrlCmd = require('../controllers/commande');
+var ctrlLivreur = require('../controllers/livreur');
 
 //routes
 router.get('/', (req, res) => {
@@ -29,6 +30,14 @@ router.get('/plats/restaurant/:id', auth, ctrlPlat.findByRestaurant);
 router.post('/plats', auth, ctrlPlat.create);
 router.put('/plats/:id', auth, ctrlPlat.update);
 router.delete('/plats/:id', auth, ctrlPlat.delete);
+
+//livreurs
+router.get('/livreurs', auth, ctrlLivreur.findAll);
+router.get('/livreurs/:id', auth, ctrlLivreur.findById);
+router.get('/livreurs/restaurant/:id', auth, ctrlLivreur.findByRestaurant);
+router.post('/livreurs', auth, ctrlLivreur.create);
+router.put('/livreurs/:id', auth, ctrlLivreur.update);
+router.delete('/livreurs/:id', auth, ctrlLivreur.delete);
 
 //clients
 router.get('/clients', auth, ctrlClient.findAll);
@@ -44,6 +53,8 @@ router.get('/commandes/:id', auth, ctrlCmd.findById);
 router.get('/commandes/client/:id', auth, ctrlCmd.findByClient);
 router.get('/commandes/restaurant/:id', auth, ctrlCmd.findByRestaurant);
 router.get('/commandes/restaurant/:id/status/:idstatus', auth, ctrlCmd.findByRestaurantAndStatus);
+router.get('/commandes/livreur/:id', auth, ctrlCmd.findByLivreur);
+router.get('/commandes/status/:idstatus', auth, ctrlCmd.findByStatus);
 router.post('/commandes', ctrlCmd.create);
 router.put('/commandes/:id', auth, ctrlCmd.update);
 router.delete('/commandes/:id', auth, ctrlCmd.delete);

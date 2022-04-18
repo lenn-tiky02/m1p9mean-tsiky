@@ -49,3 +49,4 @@ require('./restaurants');
 require('./plats');
 require('./commandes');
 require('./clients');
+require('./livreurs');

@@ -19,7 +19,8 @@ export class ProductPlatComponent implements OnInit {
     idRestaurant: null,
     statut: '',
     dateCommande: null,
-    dateLivraison: null
+    dateLivraison: null,
+    idLivreur: null
   };
 
   platListe : PlatDetails[]= [];

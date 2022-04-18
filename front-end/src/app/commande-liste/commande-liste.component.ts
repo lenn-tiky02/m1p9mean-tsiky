@@ -17,7 +17,8 @@ export class CommandeListeComponent implements OnInit {
     idRestaurant: null,
     statut: '',
     dateCommande: null,
-    dateLivraison: null
+    dateLivraison: null,
+    idLivreur: null
   };
 
   commandeRead : CommandeReadDetails[] = [];

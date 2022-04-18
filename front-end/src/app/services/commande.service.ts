@@ -7,6 +7,7 @@ import { AuthenticationService } from './authentication.service';
 import { ClientDetails } from './client.service';
 import { PlatDetails } from './plat.service';
 import { RestaurantDetails } from './restaurant.service';
+import { identity } from 'rxjs';
 
 export interface CommandeReadDetails {
   _id: String | null;
@@ -18,7 +19,8 @@ export interface CommandeReadDetails {
   dateLivraison: Date | null;  
   totalPrixDeVente: Number | null;
   totalPrixDeRevient: Number | null;
-  totalPrixBenefice: Number | null;
+  totalPrixBenefice: Number | null;  
+  idLivreur: String | null;
   showRow: Boolean;
 }
 
@@ -30,6 +32,7 @@ export interface CommandeAddDetails {
   statut: String;
   dateCommande: Date | null;
   dateLivraison: Date | null;
+  idLivreur: String | null;
 }
 
 @Injectable()
@@ -73,6 +76,14 @@ export class CommandeService {
 
   public getCommandeByRestaurantAndStatus(id: string | null, status: string | null): Observable<CommandeReadDetails[]>{
     return this.http.get<CommandeReadDetails[]>(`/api/commandes/restaurant/`+ id +`/status/`+ status, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
+  public getCommandeByStatus(status: string | null): Observable<CommandeReadDetails[]>{
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes/status/`+ status, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
+  public getCommandeByLivreur(id: string | null): Observable<CommandeReadDetails[]>{
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes/livreur/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
   public getCommandeByClient(id: string | null): Observable<CommandeReadDetails[]>{

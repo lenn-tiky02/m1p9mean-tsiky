@@ -97,6 +97,76 @@ module.exports.findByRestaurant = function(req, res) {
     });
  };
 
+ module.exports.findByLivreur = function(req, res) {
+  const id = req.params.id;
+  Commande.find({
+    idLivreur: id
+  })
+  .populate('idClient')   
+  .populate('idRestaurant')
+  .populate('listePlats')
+    .then(data => {
+      if (!data){
+        res.status(404).send({ message: "Not found Commande with idLivreur " + id });
+      }       
+      else {
+        data.forEach(data => {
+          let totalVente = 0;
+          let totalRevient = 0;
+           data.listePlats.forEach(plat => {
+            totalVente = parseFloat(totalVente) + parseFloat(plat.prixDeVente);
+            totalRevient = parseFloat(totalRevient) + parseFloat(plat.prixDeRevient);
+          });
+                  
+          data.totalPrixDeVente = totalVente;
+          data.totalPrixDeRevient = totalRevient;
+          data.totalPrixBenefice = totalVente - totalRevient;
+        });
+        res.send(data);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Commande with id=" + id });
+    });
+ };
+
+ module.exports.findByStatus = function(req, res) {
+  const idStatus = req.params.idstatus;
+  Commande.find({
+    statut: idStatus
+  })
+  .populate('idClient')   
+  .populate('idRestaurant')
+  .populate('listePlats')
+    .then(data => {
+      if (!data){
+        res.status(404).send({ message: "Not found Commande with idStatus " + id });
+      }       
+      else {
+        data.forEach(data => {
+          let totalVente = 0;
+          let totalRevient = 0;
+           data.listePlats.forEach(plat => {
+            totalVente = parseFloat(totalVente) + parseFloat(plat.prixDeVente);
+            totalRevient = parseFloat(totalRevient) + parseFloat(plat.prixDeRevient);
+          });
+                  
+          data.totalPrixDeVente = totalVente;
+          data.totalPrixDeRevient = totalRevient;
+          data.totalPrixBenefice = totalVente - totalRevient;
+        });
+        res.send(data);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Commande with id=" + id });
+    });
+ };
+
  module.exports.findByClient = function(req, res) {
   const id = req.params.id;
   Commande.find({

@@ -34,9 +34,10 @@ import { AngularFireStorageModule, AngularFireStorageReference, AngularFireUploa
 import { environment } from 'src/environments/environment';
 import { ClientService } from './services/client.service';
 import { RestaurantService } from './services/restaurant.service';
-import { CommandeAssignationComponent } from './commande-assignation/commande-assignation.component';
+import { CommandeRestaurantComponent } from './commande-restaurant/commande-restaurant.component';
 import { CommandeService } from './services/commande.service';
 import { ToastrModule } from 'ngx-toastr';
+import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ToastrModule } from 'ngx-toastr';
     ProductPlatComponent,
     SpinnerOverlayComponent,
     EnvoiMailComponent,
-    CommandeAssignationComponent
+    CommandeRestaurantComponent,
+    CommandeLivreurComponent
   ],
   imports: [
     BrowserModule,

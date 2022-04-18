@@ -5,11 +5,11 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-commande-assignation',
-  templateUrl: './commande-assignation.component.html',
-  styleUrls: ['./commande-assignation.component.css']
+  selector: 'app-commande-livreur',
+  templateUrl: './commande-livreur.component.html',
+  styleUrls: ['./commande-livreur.component.css']
 })
-export class CommandeAssignationComponent implements OnInit {
+export class CommandeLivreurComponent implements OnInit {
 
   todo: CommandeReadDetails[] = [];
   done : CommandeReadDetails[] = [];
@@ -17,10 +17,10 @@ export class CommandeAssignationComponent implements OnInit {
   constructor(private toastr: ToastrService, private commandeService: CommandeService, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.commandeService.getCommandeByRestaurantAndStatus(this.auth.getUserRoles()[0].roleid, 'validée').subscribe((data : CommandeReadDetails[]) => {
+    this.commandeService.getCommandeByStatus('traitée').subscribe((data : CommandeReadDetails[]) => {
       this.todo = data;   
     });
-    this.commandeService.getCommandeByRestaurantAndStatus(this.auth.getUserRoles()[0].roleid, 'traitée').subscribe((data : CommandeReadDetails[]) => {
+    this.commandeService.getCommandeByLivreur(this.auth.getUserRoles()[0].roleid).subscribe((data : CommandeReadDetails[]) => {
       this.done = data;   
     });
   }
@@ -29,7 +29,8 @@ export class CommandeAssignationComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log('event.previousContainer.data');
+      
+      let idCom = event.previousContainer.data[event.previousIndex]._id;
       console.log(event.previousContainer.data[event.previousIndex]);
       transferArrayItem(
         event.previousContainer.data,
@@ -37,23 +38,16 @@ export class CommandeAssignationComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      this.changeStatusCommande(event.previousContainer.data[event.previousIndex]._id,'traitée');
+      this.changeStatusCommande(idCom,'livrée');
     }
   }
   
   changeStatusCommande(idCommande: String | null, status: String): void {  
     this.commandeService.getCommandeById(idCommande).subscribe((data : CommandeAddDetails) => {
       data.statut = status;
-      this.commandeService.modifierCommande(data).subscribe((data : CommandeAddDetails) => { console.log('Vita ooo!')});
+      data.idLivreur = this.auth.getUserRoles()[0].roleid;
+      data.dateLivraison = new Date();
+      this.commandeService.modifierCommande(data).subscribe((data : CommandeAddDetails) => { console.log('Done')});
     });
   }
-   /*this.commandeToUpdate.statut = 'validée';
-    
-    this.commandeService.modifierCommande(this.commandeToUpdate).subscribe((data: any) => {
-      let commandeIndex =  this.commandeRead.findIndex(element => element._id === idCommande)!;
-      this.commandeRead[commandeIndex].statut = 'validée' ;
-      this.toastr.success('Le plat a bien été validée', 'Plat validée!',{
-        positionClass: 'toast-bottom-center'
-      });
-    });*/
 }
