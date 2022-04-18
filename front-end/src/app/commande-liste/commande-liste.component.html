@@ -30,14 +30,20 @@
               <ng-container *ngFor="let commande of commandeRead">
                 <tr>
                   <td><button class="btn btn-default btn-xs" (click)="commande.showRow = !commande.showRow"><i class="fa fa-eye fa-fw"></i></button></td>
-                  <td *ngIf="commande.statut === 'validée'; else simpleStatut" style="color: green"><i class="fa fa-check-circle fa-fw"></i> {{commande.statut}}</td>
-                  <ng-template #simpleStatut>
-                    <td><i class="fa fa-pencil-square-o fa-fw"></i> {{commande.statut}}</td>
+                  <td *ngIf="commande.statut === 'validée'; else firstCond; " style="color: green"><i class="fa fa-check-circle fa-fw"></i> {{commande.statut}}</td>
+                  <ng-template #firstCond>
+                    <td *ngIf="commande.statut === 'traitée'; else secondCond;"  style="color: rgb(255, 166, 0)"><i class="fa fa-free-code-camp fa-fw"></i> {{commande.statut}}</td>
+                  </ng-template>
+                  <ng-template #secondCond>
+                    <td *ngIf="commande.statut === 'livrée'; else thirdCond;"  style="color: rgb(225, 0, 255)"><i class="fa fa-home fa-fw"></i>{{commande.statut}}</td>
+                  </ng-template>
+                  <ng-template #thirdCond>
+                    <td><i class="fa fa-pencil-square-o fa-fw"></i>{{commande.statut}}</td>
                   </ng-template>
                   <td>{{commande?.totalPrixDeVente?.toString() | currency: 'Ar '}}</td>
                   <td>{{commande?.idRestaurant?.nom}}</td>
                   <td>{{commande?.dateCommande | date:'dd/MM/yyy HH:mm'}}</td>
-                  <td><button class="btn btn-default btn-xs" style="color: #12bbad" (click)="validateCommande(commande._id)"><i class="fa fa-check fa-fw"></i> Valider</button></td>
+                  <td><button class="btn btn-default btn-xs" style="color: #12bbad" (click)="validateCommande(commande._id)" [disabled]="commande.statut !== 'brouillon'"><i class="fa fa-check fa-fw"></i> Valider</button></td>
                   <td><button class="btn btn-default btn-xs" style="color: red" (click)="deleteCommande(commande._id)"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
                 </tr>
                 <tr *ngIf="commande.showRow">

@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { RoleGuardGuard } from './services/guards/role-guard.guard';
 import { CommandeListeComponent } from './commande-liste/commande-liste.component';
+import { CommandeAssignationComponent } from './commande-assignation/commande-assignation.component';
 import { RestaurantAdminComponent } from './restaurant-admin/restaurant-admin.component';
 import { PlatManagementComponent } from './plat-management/plat-management.component';
 import { ProductPlatComponent } from './product-plat/product-plat.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'platManagement/:id', component: PlatManagementComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'platManagement', component: PlatManagementComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'envoieMail', component: EnvoiMailComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur','Ekaly']}},
-  { path: 'commandes', component: CommandeListeComponent, canActivate: [AuthGuardService]}
+  { path: 'commandes', component: CommandeListeComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Client']}},
+  { path: 'commandeManagement', component: CommandeAssignationComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}}
 ];
 
 @NgModule({
