@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService, TokenPayload } from '../services/authentication.service';
 

@@ -18,8 +18,6 @@ export class HomeComponent {
   getRestaurantByString(text : String){
     this.restaurantService.getRestaurantByTextName(text)  
     .subscribe(data => {
-      console.log('attention please');    
-      console.log(data);    
       this.tabResult = data;
     });
   }

@@ -7,6 +7,7 @@ import { finalize, Observable } from 'rxjs';
 import { SpinnerOverlayService } from '../services/spinner-overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-plat-management',
@@ -40,15 +41,12 @@ export class PlatManagementComponent implements OnInit {
   fb: any;
   downloadURL: Observable<string> | undefined;
 
-  constructor(private auth: AuthenticationService, private router: Router, private route: ActivatedRoute, private platService: PlatService,  private formsModule: FormsModule, private uploadService: UploadService, private storage: AngularFireStorage, private readonly spinnerOverlayService: SpinnerOverlayService) { }
+  constructor(private toastr: ToastrService, private auth: AuthenticationService, private router: Router, private route: ActivatedRoute, private platService: PlatService,  private formsModule: FormsModule, private uploadService: UploadService, private storage: AngularFireStorage, private readonly spinnerOverlayService: SpinnerOverlayService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe( 
       params => {
       if (params['id']) { 
-        //this.doSearch(params['term'])
-        console.log('******************');
-        console.log(params['id']);
         this.platService.getPlatById(params['id'])
         .subscribe((data: PlatDetails)=>{
           console.log(data);
@@ -65,8 +63,10 @@ export class PlatManagementComponent implements OnInit {
     }else{
       this.platService.ajouterPlat(this.platVariable)  
       .subscribe(data => {
-        console.log(data);
-        window.location.reload();          
+        this.toastr.success('Le plat a bien été ajouté', 'Plat ajouté!',{
+          positionClass: 'toast-bottom-center'
+        });       
+        this.reloadCurrentRoute();
       });
     }
       
@@ -79,11 +79,12 @@ export class PlatManagementComponent implements OnInit {
     }else{
       this.platService.modifierPlat(this.platVariable)  
       .subscribe(data => {
-        console.log(data);
-        window.location.reload();          
+        this.toastr.success('Le plat a bien été modifié', 'Plat modifié!',{
+          positionClass: 'toast-bottom-center'
+        });
+        this.reloadCurrentRoute();
       });
     }
-    
   }
 
   supprimerPlat(id: String){
@@ -91,6 +92,9 @@ export class PlatManagementComponent implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.router.navigate(['/restaurantAdmin']);
+      this.toastr.success('Le plat a bien été supprimé', 'Plat supprimé!',{
+        positionClass: 'toast-bottom-center'
+      });     
     });
   }
 
@@ -119,11 +123,13 @@ export class PlatManagementComponent implements OnInit {
             }
             this.platVariable.imagePath = this.fb;
             this.spinnerOverlayService.hide();
-            console.log(this.fb);
+
             this.platService.ajouterPlat(this.platVariable)  
             .subscribe(data => {
-              console.log(data);
-              window.location.reload();          
+              this.toastr.success('Le plat a bien été ajouté', 'Plat ajouté!',{
+                positionClass: 'toast-bottom-center'
+              });  
+              this.reloadCurrentRoute();
             });
           });
         })
@@ -152,11 +158,13 @@ export class PlatManagementComponent implements OnInit {
             }
             this.platVariable.imagePath = this.fb;
             this.spinnerOverlayService.hide();
-            console.log(this.fb);
+            
             this.platService.modifierPlat(this.platVariable)  
-            .subscribe(data => {
-              console.log(data);
-              window.location.reload();          
+            .subscribe(data => {       
+              this.toastr.success('Le plat a bien été ajouté', 'Plat ajouté!',{
+                positionClass: 'toast-bottom-center'
+              });         
+              this.reloadCurrentRoute();
             });
           });
         })
@@ -166,4 +174,11 @@ export class PlatManagementComponent implements OnInit {
         }
       });
   }
+
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
 }

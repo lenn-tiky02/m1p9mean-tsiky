@@ -48,7 +48,7 @@ export class CommandeListeComponent implements OnInit {
     }    
   }
 
-  onSupressCommande(idPlat: String | null, idCommande: String | null): void {
+  deletePlatCommande(idPlat: String | null, idCommande: String | null): void {
     console.log('idPlat = ' + idPlat);
     console.log('idCommande = ' + idCommande);
     let commandeIndex =  this.commandeRead.findIndex(element => element._id === idCommande)!;
@@ -61,11 +61,36 @@ export class CommandeListeComponent implements OnInit {
       this.commandeToUpdate.listePlats = this.commandeRead[commandeIndex].listePlats?.map(({ _id }) => _id) as String[];
       
       this.commandeService.modifierCommande(this.commandeToUpdate).subscribe((data: any) => {
-        this.toastr.success('Votre commande a bien été supprimée', 'Commande créée!',{
+        this.toastr.success('Le plat a bien été supprimée', 'Plat supprimée!',{
           positionClass: 'toast-bottom-center'
         });
       });
     });
   }
 
+  deleteCommande(idCommande: String | null): void {    
+    this.commandeService.supprimerCommande(idCommande).subscribe((data : CommandeAddDetails) => {    
+      let commandeIndex =  this.commandeRead.findIndex(element => element._id === idCommande)!;
+      this.commandeRead.splice(commandeIndex, 1);
+      this.toastr.success('la commande a bien été supprimée', 'Commande supprimée!',{
+        positionClass: 'toast-bottom-center'
+      });
+    
+    });
+  }
+
+  validateCommande(idCommande: String | null): void {  
+    this.commandeService.getCommandeById(idCommande).subscribe((data : CommandeAddDetails) => {
+      this.commandeToUpdate = data;
+      this.commandeToUpdate.statut = 'validée';
+      
+      this.commandeService.modifierCommande(this.commandeToUpdate).subscribe((data: any) => {
+        let commandeIndex =  this.commandeRead.findIndex(element => element._id === idCommande)!;
+        this.commandeRead[commandeIndex].statut = 'validée' ;
+        this.toastr.success('Le plat a bien été validée', 'Plat validée!',{
+          positionClass: 'toast-bottom-center'
+        });
+      });
+    });
+  }
 }

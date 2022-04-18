@@ -28,10 +28,12 @@
                 <td>{{restaurant.location}}</td>
                 <td>{{restaurant.telephone}}</td>
               </tr>     
-              <tr *ngIf="tabResult.length === 0">Pas de donnée</tr>       
+              <tr *ngIf="tabResult.length === 0">
+                <td colspan="4">Pas de donnée</td>
+              </tr>       
             </tbody>
           </table>
-        </div><a class="btn btn-primary" href="#">Voir plus</a>
+        </div><!--<a class="btn btn-primary" href="#">Voir plus</a>-->
       </div>
       <div class="p-5 bg-white ml-auto col-md-6 border">
         <h1>recherche</h1>
@@ -78,7 +80,7 @@
 <!-- Gallery -->
 <!-- Menu -->
 <!-- Carousel reviews -->
-<!---->
+<!--
 <div class="py-5 text-center photo-overlay" style="background-image: url(&quot;../../assets/images//restaurant/testimonal_background_light.jpg&quot;);">
   <div class="container">
     <div class="row">
@@ -102,8 +104,9 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 <!-- Carousel venue -->
+<!--
 <div class="py-5" style="background-image: url(&quot;../../assets/images/restaurant/cover_light_2.jpg&quot;);" id="venue">
   <div class="container">
     <div class="row bg-primary animate-in-down">
@@ -150,4 +153,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

@@ -53,7 +53,7 @@ export class CommandeService {
     return returnn;
   }
 
-  public supprimerCommande(id: String): Observable<any> {        
+  public supprimerCommande(id: String | null): Observable<any> {        
     let returnn =  this.http.delete<CommandeAddDetails>(`/api/commandes/`+ id, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));   
     return returnn;

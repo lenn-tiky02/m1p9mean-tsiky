@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MailContent, MailService } from '../services/mail.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-envoi-mail',
@@ -14,16 +15,17 @@ export class EnvoiMailComponent implements OnInit {
     text:    ''
   };
 
-  constructor(private mailService : MailService) { }
+  constructor(private toastr: ToastrService, private mailService : MailService) { }
 
   ngOnInit(): void {
   }
 
   envoyerMail() {    
-    console.log(this.mailObject);
     this.mailService.sendMail(this.mailObject) 
     .subscribe(data => {
-      console.log(data);
+      this.toastr.success('L \'email a bien été envoyé', 'Email envoyée!',{
+        positionClass: 'toast-bottom-center'
+      });
     });  
   }
 }

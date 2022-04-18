@@ -28,14 +28,17 @@
             </thead>
             <tbody>
               <ng-container *ngFor="let commande of commandeRead">
-                <tr (click)="commande.showRow = !commande.showRow">
-                  <td><button class="btn btn-default btn-xs"><i class="fa fa-eye fa-fw"></i></button></td>
-                  <td>{{commande.statut}}</td>
+                <tr>
+                  <td><button class="btn btn-default btn-xs" (click)="commande.showRow = !commande.showRow"><i class="fa fa-eye fa-fw"></i></button></td>
+                  <td *ngIf="commande.statut === 'validée'; else simpleStatut" style="color: green"><i class="fa fa-check-circle fa-fw"></i> {{commande.statut}}</td>
+                  <ng-template #simpleStatut>
+                    <td><i class="fa fa-pencil-square-o fa-fw"></i> {{commande.statut}}</td>
+                  </ng-template>
                   <td>{{commande?.totalPrixDeVente?.toString() | currency: 'Ar '}}</td>
                   <td>{{commande?.idRestaurant?.nom}}</td>
                   <td>{{commande?.dateCommande | date:'dd/MM/yyy HH:mm'}}</td>
-                  <td><button class="btn btn-default btn-xs" style="color: #12bbad"><i class="fa fa-check fa-fw"></i> Valider</button></td>
-                  <td><button class="btn btn-default btn-xs" style="color: red"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
+                  <td><button class="btn btn-default btn-xs" style="color: #12bbad" (click)="validateCommande(commande._id)"><i class="fa fa-check fa-fw"></i> Valider</button></td>
+                  <td><button class="btn btn-default btn-xs" style="color: red" (click)="deleteCommande(commande._id)"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
                 </tr>
                 <tr *ngIf="commande.showRow">
                   <td colspan="7">
@@ -57,7 +60,7 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let plat of commande.listePlats">
-                          <td><a (click)="onSupressCommande(plat._id, commande._id)"><i class="fa fa-trash fa-fw" style="color:red; cursor: pointer;"></i></a></td>
+                          <td><a (click)="deletePlatCommande(plat._id, commande._id)"><i class="fa fa-trash fa-fw" style="color:red; cursor: pointer;"></i></a></td>
                           <td>{{plat.nom}}</td> 
                           <td>{{plat.description}}</td>
                           <td>{{plat?.prixDeVente?.$numberDecimal?.toString() | currency: 'Ar '}}</td>
