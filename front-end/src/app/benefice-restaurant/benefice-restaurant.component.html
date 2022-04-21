@@ -1,0 +1,36 @@
+<div class="py-5">
+
+  <div class="container">
+    <h1>Informations du {{dateNow | date: 'dd/MM/yyy'}}:</h1>
+
+    <div class="row">
+      <div class="card my-6 m-2">
+        <div class="card-header bg-primary">
+          <h3 class="mb-0 text-center">Bénéfice</h3>
+        </div>
+        <div class="card-body">
+          <h1 class="card-text">{{benefice?.toString()  | currency: 'Ar '}}</h1>
+        </div>
+        <div class="card-footer">Bénéfice sur les commandes livrés aujourd'hui sur <b>{{listeCommande.length}}</b> commandes</div>
+      </div>
+      <div class="card my-6  m-2">
+        <div class="card-header bg-primary">
+          <h3 class="mb-0 text-center">Dépenses</h3>
+        </div>
+        <div class="card-body">
+          <h1 class="card-text">{{depense?.toString()  | currency: 'Ar '}}</h1>
+        </div>
+        <div class="card-footer">Dépenses sur les commandes livrés aujourd'hui sur <b>{{listeCommande.length}}</b> commandes</div>
+      </div>
+      <div class="card my-6 m-2">
+        <div class="card-header bg-primary">
+          <h3 class="mb-0 text-center">Chiffre d'affaire</h3>
+        </div>
+        <div class="card-body">
+          <h1 class="card-text">{{chiffreAffaire?.toString()  | currency: 'Ar '}}</h1>
+        </div>
+        <div class="card-footer">Chiffre d'affaire sur les commandes livrés aujourd'hui sur <b>{{listeCommande.length}}</b> commandes</div>
+      </div>
+    </div>
+  </div>
+</div>

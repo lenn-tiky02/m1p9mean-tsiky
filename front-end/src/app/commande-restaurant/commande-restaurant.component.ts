@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./commande-restaurant.component.css']
 })
 export class CommandeRestaurantComponent implements OnInit {
+  beneficeValidee: Number = 0;
+  beneficeTraitee: Number = 0;
 
   todo: CommandeReadDetails[] = [];
   done : CommandeReadDetails[] = [];

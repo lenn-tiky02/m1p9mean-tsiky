@@ -55,6 +55,7 @@ router.get('/commandes/restaurant/:id', auth, ctrlCmd.findByRestaurant);
 router.get('/commandes/restaurant/:id/status/:idstatus', auth, ctrlCmd.findByRestaurantAndStatus);
 router.get('/commandes/livreur/:id', auth, ctrlCmd.findByLivreur);
 router.get('/commandes/status/:idstatus', auth, ctrlCmd.findByStatus);
+router.post('/commandes/restaurantDate', ctrlCmd.findByRestaurantDate);
 router.post('/commandes', ctrlCmd.create);
 router.put('/commandes/:id', auth, ctrlCmd.update);
 router.delete('/commandes/:id', auth, ctrlCmd.delete);

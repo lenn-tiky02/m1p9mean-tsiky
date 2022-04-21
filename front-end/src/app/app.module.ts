@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -38,6 +38,7 @@ import { CommandeRestaurantComponent } from './commande-restaurant/commande-rest
 import { CommandeService } from './services/commande.service';
 import { ToastrModule } from 'ngx-toastr';
 import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.component';
+import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.co
     SpinnerOverlayComponent,
     EnvoiMailComponent,
     CommandeRestaurantComponent,
-    CommandeLivreurComponent
+    CommandeLivreurComponent,
+    BeneficeRestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.co
     UploadService,
     ClientService,
     RestaurantService,
-    CommandeService
+    CommandeService,
+    DatePipe
   ],
   bootstrap: [AppComponent] 
 })

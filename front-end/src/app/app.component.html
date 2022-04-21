@@ -23,6 +23,7 @@
         <ul class="navbar-nav mr-auto">
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/restaurantAdmin">Gestion plats</a> </li>
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/commandeManagement">Gestion commandes</a> </li>
+          <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/beneficeRestaurant">Bénéfices</a> </li>
           <li *ngIf="role.isNavAuthorised(['Restaurateur'])" class="nav-item"> <a class="nav-link" routerLink="/envoieMail">Envoi mail</a> </li>
           <app-profile *ngIf="role.isNavAuthorised(['Client'])"></app-profile>
           <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>

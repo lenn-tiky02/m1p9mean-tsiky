@@ -24,7 +24,7 @@ export class LoginComponent {
       }else if(this.auth.getUserRoles()[0].name === 'Client'){
         this.router.navigateByUrl('/');
       }else if(this.auth.getUserRoles()[0].name === 'Livreur'){
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/commandeLivreur');
       }
       
     }, (err) => {

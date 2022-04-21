@@ -8,6 +8,7 @@ import { ClientDetails } from './client.service';
 import { PlatDetails } from './plat.service';
 import { RestaurantDetails } from './restaurant.service';
 import { identity } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 export interface CommandeReadDetails {
   _id: String | null;
@@ -38,7 +39,7 @@ export interface CommandeAddDetails {
 @Injectable()
 export class CommandeService {
   
-  constructor(private http: HttpClient, private auth: AuthenticationService) {}
+  constructor(private http: HttpClient, private auth: AuthenticationService, private datepipe: DatePipe) {}
 
   public ajouterCommande(Commande: CommandeAddDetails): Observable<any> {    
     const body=JSON.stringify(Commande);
@@ -71,7 +72,20 @@ export class CommandeService {
   }
 
   public getCommandeByRestaurant(id: string | null): Observable<CommandeReadDetails[]>{
-    return this.http.get<CommandeReadDetails[]>(`/api/commandes/restaurant/`+ id, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+    return this.http.get<CommandeReadDetails[]>(`/api/commandes/restaurant`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
+  }
+
+  public getCommandeByRestaurantAndDate(id: string | null, date: Date, statut: string | null): Observable<CommandeReadDetails[]>{
+    const body=JSON.stringify(
+      {
+         id,
+         date : this.datepipe.transform(date, 'yyyy-MM-dd'),
+         statut 
+      });
+   
+    let returnn =  this.http.post<CommandeReadDetails[]>(`/api/commandes/restaurantDate`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    .pipe(retry(1), catchError(this.handleError));   
+    return returnn;
   }
 
   public getCommandeByRestaurantAndStatus(id: string | null, status: string | null): Observable<CommandeReadDetails[]>{

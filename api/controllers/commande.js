@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var moment = require('moment'); // require
 var Commande = mongoose.model('Commande');
 
 var sendJSONresponse = function(res, status, content) {
@@ -55,6 +56,51 @@ module.exports.findByRestaurant = function(req, res) {
       res
         .status(500)
         .send({ message: "Error retrieving Commande with id=" + id });
+    });
+ };
+
+ module.exports.findByRestaurantDate = function(req, res) {
+  console.log('EAT YOU VEGETABLES');
+  console.log(req.body.statut);
+  console.log(moment(req.body.date).startOf('day').format());
+  console.log(moment(req.body.date).endOf('day').format());
+ // console.log(moment(req.body.date).beginOf());
+ // console.log(moment("08/03/2021", "MM/DD/YYYY").beginOf('day').toDate(),);
+  Commande.find({
+    idRestaurant:  req.body.id,
+    statut:  req.body.statut,
+    dateLivraison: {
+      $gt: moment(req.body.date).startOf('day').format(),
+      $lt: moment(req.body.date).endOf('day').format(),
+    }
+  })
+  .populate('idClient')   
+  .populate('idRestaurant')
+  .populate('listePlats')
+    .then(data => {
+      if (!data){
+        res.status(404).send({ message: "Not found Commande with idClient " + req.body.id });
+      }       
+      else {
+        data.forEach(data => {
+          let totalVente = 0;
+          let totalRevient = 0;
+           data.listePlats.forEach(plat => {
+            totalVente = parseFloat(totalVente) + parseFloat(plat.prixDeVente);
+            totalRevient = parseFloat(totalRevient) + parseFloat(plat.prixDeRevient);
+          });
+                  
+          data.totalPrixDeVente = totalVente;
+          data.totalPrixDeRevient = totalRevient;
+          data.totalPrixBenefice = totalVente - totalRevient;
+        });
+        res.send(data);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Commande with id=" + req.body.id +" ; " + err.message});
     });
  };
 
