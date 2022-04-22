@@ -3,6 +3,16 @@
   <div class="container">
     <h1>Informations du {{dateNow | date: 'dd/MM/yyy'}}:</h1>
 
+    <div class="row m-2">
+      <mat-form-field appearance="fill">
+        <mat-label>Veuillez choisir une date</mat-label>
+        <input matInput [matDatepicker]="picker" (dateChange)="onChangeCalendar($event)">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
     <div class="row">
       <div class="card my-6 m-2">
         <div class="card-header bg-primary">

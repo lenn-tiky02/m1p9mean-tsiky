@@ -7,6 +7,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -39,6 +43,7 @@ import { CommandeService } from './services/commande.service';
 import { ToastrModule } from 'ngx-toastr';
 import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.component';
 import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -73,7 +78,13 @@ import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-rest
       progressBar: true
       //positionClass: 'toast-bottom-center'
     //  preventDuplicates : true
-    })
+    }),
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule //, MatMomentDateModule
   ],
   providers: [  
     AuthenticationService, 
