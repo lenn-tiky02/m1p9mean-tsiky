@@ -42,6 +42,7 @@ import { CommandeRestaurantComponent } from './commande-restaurant/commande-rest
 import { CommandeService } from './services/commande.service';
 import { ToastrModule } from 'ngx-toastr';
 import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.component';
+import { BeneficeEkalyComponent } from './benefice-ekaly/benefice-ekaly.component';
 import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -60,7 +61,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     EnvoiMailComponent,
     CommandeRestaurantComponent,
     CommandeLivreurComponent,
-    BeneficeRestaurantComponent
+    BeneficeRestaurantComponent,
+    BeneficeEkalyComponent
   ],
   imports: [
     BrowserModule,

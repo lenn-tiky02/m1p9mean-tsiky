@@ -14,6 +14,7 @@ import { ProductPlatComponent } from './product-plat/product-plat.component';
 import { EnvoiMailComponent } from './envoi-mail/envoi-mail.component';
 import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.component';
 import { CommandeRestaurantComponent } from './commande-restaurant/commande-restaurant.component';
+import { BeneficeEkalyComponent } from './benefice-ekaly/benefice-ekaly.component';
 import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'commandes', component: CommandeListeComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Client']}},
   { path: 'commandeManagement', component: CommandeRestaurantComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'beneficeRestaurant', component: BeneficeRestaurantComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
+  { path: 'beneficeEkaly', component: BeneficeEkalyComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Ekaly']}},
   { path: 'commandeLivreur', component: CommandeLivreurComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Livreur']}}
 ];
 
