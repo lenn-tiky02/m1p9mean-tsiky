@@ -46,6 +46,7 @@ import { BeneficeEkalyComponent } from './benefice-ekaly/benefice-ekaly.componen
 import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommandeListeEkalyComponent } from './commande-liste-ekaly/commande-liste-ekaly.component';
+import { RestaurantManagementComponent } from './restaurant-management/restaurant-management.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { CommandeListeEkalyComponent } from './commande-liste-ekaly/commande-lis
     CommandeLivreurComponent,
     BeneficeRestaurantComponent,
     BeneficeEkalyComponent,
-    CommandeListeEkalyComponent
+    CommandeListeEkalyComponent,
+    RestaurantManagementComponent
   ],
   imports: [
     BrowserModule,
