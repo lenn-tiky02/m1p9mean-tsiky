@@ -44,7 +44,7 @@
                   <td>{{commande?.idRestaurant?.nom}}</td>
                   <td>{{commande?.dateCommande | date:'dd/MM/yyy HH:mm'}}</td>
                   <td><button class="btn btn-default btn-xs" style="color: #12bbad" (click)="validateCommande(commande._id)" [disabled]="commande.statut !== 'brouillon'"><i class="fa fa-check fa-fw"></i> Valider</button></td>
-                  <td><button class="btn btn-default btn-xs" style="color: red" (click)="deleteCommande(commande._id)"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
+                  <td><button class="btn btn-default btn-xs" style="color: red" (click)="deleteCommande(commande._id)"  [disabled]="commande.statut !== 'brouillon'"><i class="fa fa-trash fa-fw"></i> Supprimer</button></td>
                 </tr>
                 <tr *ngIf="commande.showRow">
                   <td colspan="7">

@@ -75,7 +75,19 @@ export class CommandeService {
     return this.http.get<CommandeReadDetails[]>(`/api/commandes/restaurant`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` }});
   }
 
-  public getCommandeByRestaurantAndDate(id: string | null, date: Date, statut: string | null): Observable<CommandeReadDetails[]>{
+  public getCommandeByRestaurantAndDate(id: string | null, date: Date): Observable<CommandeReadDetails[]>{
+    const body=JSON.stringify(
+      {
+         id,
+         date : this.datepipe.transform(date, 'yyyy-MM-dd')
+      });
+   
+    let returnn =  this.http.post<CommandeReadDetails[]>(`/api/commandes/restaurantDate`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    .pipe(retry(1), catchError(this.handleError));   
+    return returnn;
+  }
+
+  public getCommandeByRestaurantAndDateAndStatus(id: string | null, date: Date, statut: string | null): Observable<CommandeReadDetails[]>{
     const body=JSON.stringify(
       {
          id,
@@ -83,7 +95,7 @@ export class CommandeService {
          statut 
       });
    
-    let returnn =  this.http.post<CommandeReadDetails[]>(`/api/commandes/restaurantDate`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    let returnn =  this.http.post<CommandeReadDetails[]>(`/api/commandes/restaurantDateStatut`, body, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
     .pipe(retry(1), catchError(this.handleError));   
     return returnn;
   }

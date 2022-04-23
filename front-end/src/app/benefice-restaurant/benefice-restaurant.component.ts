@@ -34,7 +34,7 @@ export class BeneficeRestaurantComponent implements OnInit {
   }
 
   getData(date: Date){
-    this.commandeService.getCommandeByRestaurantAndDate(this.auth.getUserRoles()[0].roleid, date, 'livrée').subscribe((data : CommandeReadDetails[]) => {
+    this.commandeService.getCommandeByRestaurantAndDateAndStatus(this.auth.getUserRoles()[0].roleid, date, 'livrée').subscribe((data : CommandeReadDetails[]) => {
       this.listeCommande = data;   
       console.log('************');
       console.log(data);

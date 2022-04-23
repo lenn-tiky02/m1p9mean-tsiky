@@ -16,6 +16,7 @@ import { CommandeLivreurComponent } from './commande-livreur/commande-livreur.co
 import { CommandeRestaurantComponent } from './commande-restaurant/commande-restaurant.component';
 import { BeneficeEkalyComponent } from './benefice-ekaly/benefice-ekaly.component';
 import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-restaurant.component';
+import { CommandeListeEkalyComponent } from './commande-liste-ekaly/commande-liste-ekaly.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'commandeManagement', component: CommandeRestaurantComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'beneficeRestaurant', component: BeneficeRestaurantComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Restaurateur']}},
   { path: 'beneficeEkaly', component: BeneficeEkalyComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Ekaly']}},
-  { path: 'commandeLivreur', component: CommandeLivreurComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Livreur']}}
+  { path: 'commandeLivreur', component: CommandeLivreurComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Livreur']}},
+  { path: 'commandeEkaly', component: CommandeListeEkalyComponent, canActivate: [AuthGuardService, RoleGuardGuard], data: { expectedRoles: ['Ekaly']}}  
 ];
 
 @NgModule({

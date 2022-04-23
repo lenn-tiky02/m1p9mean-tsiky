@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CommandeAddDetails, CommandeReadDetails, CommandeService } from '../services/commande.service';
+import {Component, Input, OnInit} from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
+import { CommandeReadDetails, CommandeService } from '../services/commande.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { RestaurantDetails, RestaurantService } from '../services/restaurant.service';
 
-  
 @Component({
-  selector: 'app-benefice-ekaly',
-  templateUrl: './benefice-ekaly.component.html',
-  styleUrls: ['./benefice-ekaly.component.css']
+  selector: 'app-commande-liste-ekaly',
+  templateUrl: './commande-liste-ekaly.component.html',
+  styleUrls: ['./commande-liste-ekaly.component.css']
 })
-export class BeneficeEkalyComponent implements OnInit {
+export class CommandeListeEkalyComponent implements OnInit {
   benefice: Number | null = 0;
   depense: Number | null = 0;
   chiffreAffaire: Number | null = 0;
@@ -28,6 +27,7 @@ export class BeneficeEkalyComponent implements OnInit {
     this.restaurantService.getRestaurants().subscribe(data => {
       this.chosenRestaurant = data[0]._id + '';
       this.listeRestaurant = data;
+      this.getData(this.chosenRestaurant, this.dateNow);
     })
   }
 
@@ -38,7 +38,7 @@ export class BeneficeEkalyComponent implements OnInit {
       this.benefice = 0;
       this.depense = 0;
       this.chiffreAffaire = 0;
-      this.getData(this.chosenRestaurant, new Date(event.value), 'livrée');
+      this.getData(this.chosenRestaurant, new Date(event.value));
     }else{
       this.toastr.info('Veuillez choisir un restaurant', 'Choisir un restaurant!',{
         positionClass: 'toast-bottom-center'
@@ -50,11 +50,11 @@ export class BeneficeEkalyComponent implements OnInit {
     this.benefice = 0;
     this.depense = 0;
     this.chiffreAffaire = 0;
-    this.getData(this.chosenRestaurant, this.dateNow, 'livrée');
+    this.getData(this.chosenRestaurant, this.dateNow);
   }
 
-  getData(restaurantId: string | null, date: Date, statut: string){
-    this.commandeService.getCommandeByRestaurantAndDateAndStatus(restaurantId, date, statut).subscribe((data : CommandeReadDetails[]) => {
+  getData(restaurantId: string | null, date: Date){
+    this.commandeService.getCommandeByRestaurantAndDate(restaurantId, date).subscribe((data : CommandeReadDetails[]) => {
       this.listeCommande = data;   
       console.log('************');
       console.log(data);
@@ -67,5 +67,3 @@ export class BeneficeEkalyComponent implements OnInit {
     });
   }
 }
-  
-
