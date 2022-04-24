@@ -80,6 +80,7 @@ router.post('/login', ctrlAuth.login);
 
 //users
 router.get('/users', auth, ctrlUser.findAll);
+router.delete('/users/:id', auth, ctrlUser.delete);
 
 // send mail
 router.post('/sendMail', ctrlSendMail.sendMail);

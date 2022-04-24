@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService, TokenPayload } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { RestaurantDetails, RestaurantService } from '../services/restaurant.service';
 
@@ -20,8 +19,16 @@ export class RestaurantManagementComponent implements OnInit {
     telephone: '',
     _id: null
   };
+  
+  credentials: TokenPayload = {
+    email: '',
+    name: '',
+    password: '',
+    roles: [{ name: 'Restaurateur', roleid: ''}]
+  };
+
   tabRestaurant : RestaurantDetails[] = [];
-  constructor(private toastr: ToastrService, private auth: AuthenticationService, private route: ActivatedRoute, private restaurantService: RestaurantService) { }
+  constructor(private toastr: ToastrService, private router: Router, private auth: AuthenticationService, private route: ActivatedRoute, private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
     this.restaurantService.getRestaurants()
@@ -43,6 +50,13 @@ export class RestaurantManagementComponent implements OnInit {
 
   enregistrer() { 
     console.log('enregistrer has been called!')
+    this.restaurantService.ajouterRestaurant(this.restaurantVariable).subscribe(data => {
+      console.log(data);
+      this.credentials.roles[0].roleid = data._id;
+      this.credentials.email= this.restaurantVariable.email + '';
+      this.credentials.name = this.restaurantVariable.nom + '';
+      this.enregistrerUser();     
+    });
   }
 
   modifierRestaurant(id: String | null) {  
@@ -50,6 +64,36 @@ export class RestaurantManagementComponent implements OnInit {
   }
 
   supprimerRestaurant(id: String | null){
-    console.log('supprimerRestaurant has been called!' + id)
+    console.log('supprimerRestaurant has been called!' + id);
+    this.restaurantService.supprimerUserRestaurant(id + '').subscribe(()=>{
+
+      this.restaurantService.supprimerRestaurant(id + '').subscribe(()=>{
+        this.toastr.error('Le Restaurant et son compte a bien été supprimé', 'Restaurant supprimé!',{
+          positionClass: 'toast-bottom-center'
+        }); 
+        
+        this.reloadCurrentRoute();
+      });
+     
+    });
   }
+  
+  private enregistrerUser(){
+    console.log(this.credentials)
+    this.auth.registerOnly(this.credentials).subscribe(() => {   
+      this.toastr.success('Le Restaurant a bien été ajouté', 'Restaurant ajouté!',{
+        positionClass: 'toast-bottom-center'
+      });       
+      this.reloadCurrentRoute();
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
 }

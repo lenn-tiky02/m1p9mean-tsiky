@@ -77,7 +77,7 @@ export class AuthenticationService {
     }
   }
 
-  private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
+  private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload, isSaveToken: boolean = true): Observable<any> {
     let base;
     if (method === 'post') {
       base = this.http.post<TokenResponse>(`/api/${type}`, user);
@@ -89,7 +89,7 @@ export class AuthenticationService {
       map((data: TokenResponse) => {
         console.log('test token');
         console.log(data);
-        if (data.token) {
+        if (data.token && isSaveToken) {
           this.saveToken(data.token);
         }
         return data;
@@ -102,6 +102,10 @@ export class AuthenticationService {
 
   public register(user: TokenPayload): Observable<any> {
     return this.request('post', 'register', user);
+  }
+
+  public registerOnly(user: TokenPayload): Observable<any> {
+    return this.request('post', 'register', user, false);
   }
 
   public login(user: TokenPayload): Observable<any> {

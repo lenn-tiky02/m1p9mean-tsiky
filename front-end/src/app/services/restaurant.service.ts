@@ -52,6 +52,12 @@ export class RestaurantService {
     return this.http.get<RestaurantDetails[]>(`/api/restaurants/bytext/`+ text);
   }
 
+  public supprimerUserRestaurant(id: String): Observable<any> {        
+    let returnn =  this.http.delete<String>(`/api/users/`+ id, { headers: { 'content-type': 'application/json', Authorization: `Bearer ${this.auth.getToken()}` }})
+    .pipe(retry(1), catchError(this.handleError));   
+    return returnn;
+  }
+
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
