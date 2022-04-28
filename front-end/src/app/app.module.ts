@@ -47,6 +47,8 @@ import { BeneficeRestaurantComponent } from './benefice-restaurant/benefice-rest
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommandeListeEkalyComponent } from './commande-liste-ekaly/commande-liste-ekaly.component';
 import { RestaurantManagementComponent } from './restaurant-management/restaurant-management.component';
+import { LivreurManagementComponent } from './livreur-management/livreur-management.component';
+import { LivreurService } from './services/livreur.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { RestaurantManagementComponent } from './restaurant-management/restauran
     BeneficeRestaurantComponent,
     BeneficeEkalyComponent,
     CommandeListeEkalyComponent,
-    RestaurantManagementComponent
+    RestaurantManagementComponent,
+    LivreurManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +110,8 @@ import { RestaurantManagementComponent } from './restaurant-management/restauran
     ClientService,
     RestaurantService,
     CommandeService,
-    DatePipe
+    DatePipe,
+    LivreurService
   ],
   bootstrap: [AppComponent] 
 })

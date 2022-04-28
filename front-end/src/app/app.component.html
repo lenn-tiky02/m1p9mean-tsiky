@@ -28,6 +28,7 @@
           <li *ngIf="role.isNavAuthorised(['Ekaly'])" class="nav-item"> <a class="nav-link" routerLink="/beneficeEkaly">Bénéfices par restaurant par jour</a> </li>
           <li *ngIf="role.isNavAuthorised(['Ekaly'])" class="nav-item"> <a class="nav-link" routerLink="/commandeEkaly">Liste Commandes</a> </li>
           <li *ngIf="role.isNavAuthorised(['Ekaly'])" class="nav-item"> <a class="nav-link" routerLink="/restaurantManagement">Gestion restaurant</a> </li>
+          <li *ngIf="role.isNavAuthorised(['Ekaly'])" class="nav-item"> <a class="nav-link" routerLink="/livreurManagement">Gestion livreur</a> </li>
           <app-profile *ngIf="role.isNavAuthorised(['Client'])"></app-profile>
           <!-- <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>--> 

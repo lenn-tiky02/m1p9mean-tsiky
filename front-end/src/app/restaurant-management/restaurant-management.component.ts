@@ -10,7 +10,7 @@ import { RestaurantDetails, RestaurantService } from '../services/restaurant.ser
   styleUrls: ['./restaurant-management.component.css']
 })
 export class RestaurantManagementComponent implements OnInit {  
-  @Input() public varFromWhere: string | undefined; // this is typed as string, but you can use any type you want
+  //@Input() public varFromWhere: string | undefined; // this is typed as string, but you can use any type you want
 
   restaurantVariable: RestaurantDetails = {
     nom: '',

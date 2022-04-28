@@ -99,7 +99,7 @@ module.exports.delete = function(req,res){
 
 module.exports.create = function(req, res) {
 
-    if(!req.body.nom || !req.body.prenom || !req.body.telephone) {
+    if(!req.body.nom || !req.body.prenom || !req.body.telephone || !req.body.email) {
       sendJSONresponse(res, 400, {
         "message": "All fields required"
       });
@@ -110,7 +110,8 @@ module.exports.create = function(req, res) {
     const LivreurToSave = new Livreur({
       nom: req.body.nom ,
       prenom: req.body.prenom ,
-      telephone: req.body.telephone ,
+      telephone: req.body.telephone,
+      email: req.body.email,
       zoneId: req.body.zoneId             
     });
 
