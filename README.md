@@ -1,2 +1,12 @@
 # m1p9mean-tsiky
- MEAN (Mongodb, Express, Angular, NodeJS) Master1 ITU project. E-kaly
+-----------------------------------------------------------------
+MEAN (Mongodb, Express, Angular, NodeJS) Master1 ITU project. E-kaly
+-----------------------------------------------------------------
+** Voir wiki sur github pour le lien et les accès du siteweb  **
+-----------------------------------------------------------------
+               ((`\
+            ___ \\ '--._
+         .'`   `'    o  )
+        /    \   '. __.'
+       _|    /_  \ \_\_
+      {_\______\-'\__\_\
